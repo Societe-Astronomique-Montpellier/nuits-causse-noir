@@ -6,6 +6,13 @@
   "status": true,
   "json": {
     "Main": {
+      "uid": {
+        "type": "UID",
+        "config": {
+          "label": "Uid",
+          "placeholder": "UID"
+        }
+      },
       "enable_site": {
         "type": "Boolean",
         "config": {
