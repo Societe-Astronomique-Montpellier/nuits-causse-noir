@@ -18,6 +18,8 @@
   "devDependencies": {
     "@nuxtjs/prismic": "^3.4.6",
     "@slicemachine/adapter-nuxt": "^0.3.61",
-    "slice-machine-ui": "^2.11.1"
+    "slice-machine-ui": "^2.11.1",
+    "typescript": "^5.7.2",
+    "vue-tsc": "^2.1.10"
   }
 }

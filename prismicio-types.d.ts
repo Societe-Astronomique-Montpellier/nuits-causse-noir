@@ -4,6 +4,135 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
+type EventDocumentDataSlicesSlice = never;
+
+/**
+ * Content for Event documents
+ */
+interface EventDocumentData {
+  /**
+   * Titre field in *Event*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Titre
+   * - **API ID Path**: event.titre
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  titre: prismic.KeyTextField;
+
+  /**
+   * Date et heure field in *Event*
+   *
+   * - **Field Type**: Timestamp
+   * - **Placeholder**: Date et heure
+   * - **API ID Path**: event.date_event
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#timestamp
+   */
+  date_event: prismic.TimestampField;
+
+  /**
+   * Type field in *Event*
+   *
+   * - **Field Type**: Select
+   * - **Placeholder**: Type
+   * - **API ID Path**: event.type
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#select
+   */
+  type: prismic.SelectField<
+    "Activitée" | "Nuit d'observation" | "Conférence" | "Atelier"
+  >;
+
+  /**
+   * Intervenant (conférence & atelier) field in *Event*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Intervenant (conférence & atelier)
+   * - **API ID Path**: event.author
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  author: prismic.KeyTextField;
+
+  /**
+   * Spécialité de l'intervenant field in *Event*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Spécialité de l'intervenant
+   * - **API ID Path**: event.author_job
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  author_job: prismic.KeyTextField;
+
+  /**
+   * Photo intervenant field in *Event*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: event.photo_intervenant
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  photo_intervenant: prismic.ImageField<never>;
+
+  /**
+   * Slice Zone field in *Event*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: event.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<EventDocumentDataSlicesSlice> /**
+   * Meta Title field in *Event*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: event.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Event*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: event.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Event*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: event.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Event document from Prismic
+ *
+ * - **API ID**: `event`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type EventDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<Simplify<EventDocumentData>, "event", Lang>;
+
 type HomepageDocumentDataSlicesSlice = never;
 
 /**
@@ -274,7 +403,7 @@ interface RateDocumentData {
 export type RateDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<RateDocumentData>, "rate", Lang>;
 
-export type AllDocumentTypes = HomepageDocument | RateDocument;
+export type AllDocumentTypes = EventDocument | HomepageDocument | RateDocument;
 
 declare module "@prismicio/client" {
   interface CreateClient {
@@ -297,6 +426,9 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      EventDocument,
+      EventDocumentData,
+      EventDocumentDataSlicesSlice,
       HomepageDocument,
       HomepageDocumentData,
       HomepageDocumentDataSlicesSlice,
