@@ -7,9 +7,19 @@ export default defineNuxtConfig({
   },  
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
-  modules: ["@nuxtjs/prismic"],
-
+  modules: ["@nuxtjs/prismic", "@nuxtjs/tailwindcss", "@nuxtjs/i18n"],
   prismic: {
     endpoint: apiEndpoint || repositoryName
+  },
+  css: [
+    "@/assets/css/tailwind.css",
+    "@fontsource/raleway",
+    "@fontsource/raleway/200.css",
+    "@fontsource/raleway/200-italic.css",
+  ],
+  i18n: {
+    detectBrowserLanguage: false,
+    locales: ["fr-fr"],
+    defaultLocale: "fr-fr",
   }
 })

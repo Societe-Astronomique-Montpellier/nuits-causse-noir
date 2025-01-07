@@ -36,6 +36,14 @@
           "placeholder": "Sous-titre"
         }
       },
+      "logo": {
+        "type": "Image",
+        "config": {
+          "label": "Logo",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
       "date_start": {
         "type": "Date",
         "config": {
@@ -59,15 +67,6 @@
           "allowTargetBlank": true,
           "allowText": true,
           "repeat": false
-        }
-      },
-      "rates_list": {
-        "type": "Link",
-        "config": {
-          "label": "Liste des tarifs",
-          "select": "document",
-          "repeat": false,
-          "customtypes": ["rate"]
         }
       },
       "place_event": {

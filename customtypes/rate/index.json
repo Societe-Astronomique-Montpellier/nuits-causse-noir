@@ -48,6 +48,15 @@
           "placeholder": "Camping"
         }
       },
+      "display": {
+        "type": "Boolean",
+        "config": {
+          "label": "Afficher",
+          "placeholder_false": "Masquer",
+          "placeholder_true": "Afficher",
+          "default_value": true
+        }
+      },
       "slices": {
         "type": "Slices",
         "fieldset": "Slice Zone",

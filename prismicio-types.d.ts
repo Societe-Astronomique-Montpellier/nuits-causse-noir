@@ -174,6 +174,17 @@ interface HomepageDocumentData {
   subtitle: prismic.KeyTextField;
 
   /**
+   * Logo field in *Homepage*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: homepage.logo
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  logo: prismic.ImageField<never>;
+
+  /**
    * Date de début field in *Homepage*
    *
    * - **Field Type**: Date
@@ -205,17 +216,6 @@ interface HomepageDocumentData {
    * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
    */
   subscribe_link: prismic.LinkField;
-
-  /**
-   * Liste des tarifs field in *Homepage*
-   *
-   * - **Field Type**: Content Relationship
-   * - **Placeholder**: *None*
-   * - **API ID Path**: homepage.rates_list
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
-   */
-  rates_list: prismic.ContentRelationshipField<"rate">;
 
   /**
    * Lieu field in *Homepage*
@@ -347,6 +347,18 @@ interface RateDocumentData {
    * - **Documentation**: https://prismic.io/docs/field#key-text
    */
   camping: prismic.KeyTextField;
+
+  /**
+   * Afficher field in *Tarif*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: true
+   * - **API ID Path**: rate.display
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#boolean
+   */
+  display: prismic.BooleanField;
 
   /**
    * Slice Zone field in *Tarif*
