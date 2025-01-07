@@ -8,9 +8,9 @@ const { rate } = toRefs(props)
 <template>
   <div class="w-72 text-white bg-zinc-800 border-solid border-2 border-green-500 shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
     <a href="#">
-      <prismic-image :field="rate.image" class="h-80 w-72 object-cover rounded-t-xl" />
+      <prismic-image :field="rate.image" class="p-8 object-cover cover-fit bg-zinc-500" />
       <div class="px-4 py-3 w-72">
-        <span class="text-gray-400 mr-3 uppercase text-xs">Brand</span>
+        <span class="text-gray-400 mr-3 uppercase text-xs">{{ rate.description }}</span>
         <p class="text-lg font-bold truncate block capitalize">{{ rate.title }}</p>
         <div class="flex items-center">
           <p class="text-lg font-semibold cursor-auto my-3">{{ rate.price }}</p>

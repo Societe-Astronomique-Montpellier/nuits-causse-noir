@@ -11,6 +11,9 @@ export default defineNuxtConfig({
   prismic: {
     endpoint: apiEndpoint || repositoryName
   },
+  imports: {
+    dirs: ["composables", "composables/**", "types/*.d.ts"],
+  },
   css: [
     "@/assets/css/tailwind.css",
     "@fontsource/raleway",

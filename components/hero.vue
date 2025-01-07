@@ -4,7 +4,6 @@ import type {ComputedRef} from "vue";
 import { isFilled } from "@prismicio/helpers";
 
 const { t } = useI18n();
-
 const AuroraBackground = defineAsyncComponent(() => import('@/components/AuroraBackground.vue'))
 
 const props = defineProps<{
@@ -17,7 +16,8 @@ const props = defineProps<{
 }>();
 const { titleHero, subtitle, dateStart, dateEnd, subscribeLink } = toRefs(props);
 
-const rangeDates: ComputedRef<string> = computed<string>(() => `Du ${dateStart.value} au ${dateEnd.value}`);
+
+const rangeDates: ComputedRef<string> = computed<string>(() => `Du ${useFormatIntoFrenchDate(dateStart.value, "short")} au ${useFormatIntoFrenchDate(dateEnd.value, "short")}`);
 </script>
 
 <template>
@@ -34,7 +34,7 @@ const rangeDates: ComputedRef<string> = computed<string>(() => `Du ${dateStart.v
           ease: 'easeInOut',
         },
       }"
-        class="relative flex flex-col items-center justify-center gap-4 px-4"
+        class="relative flex flex-col items-center justify-center gap-8 px-4"
     >
 <!--      <h1 class="text-center text-3xl font-bold md:text-7xl text-white">-->
 <!--        {{ titleHero }}-->
@@ -43,7 +43,7 @@ const rangeDates: ComputedRef<string> = computed<string>(() => `Du ${dateStart.v
         v-if="isFilled.image(logo)"
         :field="logo"
         class="w-72 relative flex flex-col items-center justify-center"
-
+        :alt="titleHero"
       ></prismic-image>
       <h2 class="py-4 text-base font-extralight md:text-4xl text-neutral-200">
         {{ rangeDates }}
@@ -51,22 +51,22 @@ const rangeDates: ComputedRef<string> = computed<string>(() => `Du ${dateStart.v
       <div class="py-4 text-base font-extralight md:text-3xl text-neutral-200">
         {{ subtitle }}
       </div>
-      <div class="inline-flex gap-10 my-5 md:flex-row">
+      <div class="inline-flex gap-24 my-5 md:flex-row">
         <button
-            class="w-fit py-4 px-12 bg-green-500 text-white rounded-full font-bold "
+          class="w-fit py-4 px-12 bg-zinc-800 border-solid border-2 border-green-500 text-white rounded-full font-bold text-2xl"
         >
-          <nuxt-link
-              class="text-2xl hover:text-4xl"
-          >
-            Inscription
-          </nuxt-link>
+          <a href="#rates">Tarifs & programme</a>
 
         </button>
 
         <button
-          class="w-fit py-4 px-12 bg-zinc-800 border-solid border-2 border-green-500 text-white rounded-full font-bold text-2xl"
+          class="w-fit py-4 px-12 bg-green-500 text-white rounded-full font-bold "
         >
-          Tarifs & programme
+          <nuxt-link
+            class="text-2xl inline-flex"
+          >
+            Inscription
+          </nuxt-link>
         </button>
       </div>
 
