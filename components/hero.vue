@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type {DateField, ImageField, KeyTextField} from "@prismicio/client";
+import type {DateField, ImageField, KeyTextField, LinkField} from "@prismicio/client";
 import type {ComputedRef} from "vue";
 import { isFilled } from "@prismicio/helpers";
 
@@ -12,7 +12,7 @@ const props = defineProps<{
   dateStart: DateField | undefined,
   dateEnd: DateField | undefined,
   logo: ImageField<never>
-  subscribeLink: string
+  subscribeLink: LinkField
 }>();
 const { titleHero, subtitle, dateStart, dateEnd, subscribeLink } = toRefs(props);
 
@@ -56,18 +56,13 @@ const rangeDates: ComputedRef<string> = computed<string>(() => `Du ${useFormatIn
           class="w-fit py-4 px-12 bg-zinc-800 border-solid border-2 border-green-500 text-white rounded-full font-bold text-2xl"
         >
           <a href="#rates">Tarifs & programme</a>
-
         </button>
 
-        <button
-          class="w-fit py-4 px-12 bg-green-500 text-white rounded-full font-bold "
-        >
-          <nuxt-link
-            class="text-2xl inline-flex"
-          >
-            Inscription
-          </nuxt-link>
-        </button>
+        <prismic-link
+          :field="subscribeLink"
+          role="button"
+          class="w-fit py-4 px-12 bg-green-500 text-white rounded-full font-bold text-2xl"
+        ></prismic-link>
       </div>
 
     </div>
