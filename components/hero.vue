@@ -16,7 +16,6 @@ const props = defineProps<{
 }>();
 const { titleHero, subtitle, dateStart, dateEnd, subscribeLink } = toRefs(props);
 
-
 const rangeDates: ComputedRef<string> = computed<string>(() => `Du ${useFormatIntoFrenchDate(dateStart.value, "short")} au ${useFormatIntoFrenchDate(dateEnd.value, "short")}`);
 </script>
 
@@ -34,28 +33,26 @@ const rangeDates: ComputedRef<string> = computed<string>(() => `Du ${useFormatIn
           ease: 'easeInOut',
         },
       }"
-        class="relative flex flex-col items-center justify-center gap-8 px-4"
+        class="relative flex flex-col items-center justify-center gap-16 px-8"
     >
-<!--      <h1 class="text-center text-3xl font-bold md:text-7xl text-white">-->
-<!--        {{ titleHero }}-->
-<!--      </h1>-->
       <prismic-image
         v-if="isFilled.image(logo)"
         :field="logo"
         class="w-72 relative flex flex-col items-center justify-center"
         :alt="titleHero"
       ></prismic-image>
-      <h2 class="py-4 text-base font-extralight md:text-4xl text-neutral-200">
+      <h2 class="py-8 text-base font-extralight md:text-4xl text-neutral-200">
         {{ rangeDates }}
       </h2>
-      <div class="py-4 text-base font-extralight md:text-3xl text-neutral-200">
+      <div class="py-8 text-base font-extralight md:text-3xl text-neutral-200">
         {{ subtitle }}
       </div>
-      <div class="inline-flex gap-24 my-5 md:flex-row">
+      <div class="inline-flex gap-24 my-16 md:flex-row">
         <button
           class="w-fit py-4 px-12 bg-zinc-800 border-solid border-2 border-green-500 text-white rounded-full font-bold text-2xl"
+          role="link"
         >
-          <a href="#rates">Tarifs & programme</a>
+          <a href="#tarifs">Tarifs & programme</a>
         </button>
 
         <prismic-link

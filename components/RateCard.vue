@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type {RateDocument, RateDocumentData} from "~/prismicio-types";
+import type { RateDocumentData } from "~/prismicio-types";
 
 const props = defineProps<{ rate: RateDocumentData }>();
 const { rate } = toRefs(props)

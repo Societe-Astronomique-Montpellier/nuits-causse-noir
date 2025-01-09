@@ -69,10 +69,17 @@
           "repeat": false
         }
       },
-      "place_event": {
+      "place_name": {
+        "type": "Text",
+        "config": {
+          "label": "Nom du lieu",
+          "placeholder": "Nom du lieu"
+        }
+      },
+      "place_coords": {
         "type": "GeoPoint",
         "config": {
-          "label": "Lieu"
+          "label": "Coordonnées géographiques"
         }
       },
       "slices": {

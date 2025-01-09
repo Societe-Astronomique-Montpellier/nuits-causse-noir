@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import type {AllDocumentTypes, EventDocument, HomepageDocument, RateDocument} from "~/prismicio-types";
-import type {PointExpression} from "leaflet";
-import type {GeoPoint} from "@prismicio/types-internal/lib/customtypes";
 
 const { locale } = useI18n();
 const prismic = usePrismic();
@@ -37,11 +35,25 @@ const prismicFetchData = async() => {
 
   return { homepage, rates, events }
 };
-
 const { data, error } = useAsyncData('data', prismicFetchData);
 
 const HeroComponent = defineAsyncComponent(() => import('@/components/hero.vue'))
 const RateComponent = defineAsyncComponent(() => import('@/components/RateCard.vue'));
+
+type GroupedByDay = Record<string, EventDocument[]>;
+const groupedByDay: ComputedRef<GroupedByDay> = computed<GroupedByDay>(() => {
+  return data.value?.events.reduce<GroupedByDay>((acc: GroupedByDay, event: EventDocument) => {
+    const day = event.data.date_event?.split('T')[0]; // Extract the date part (YYYY-MM-DD)
+    if (day !== undefined && !acc[day]) {
+      acc[day] = [];
+    }
+
+    if (day !== undefined) {
+      acc[day].push(event);
+    }
+    return acc;
+  }, {});
+});
 
 const pradinesCoordinates: ComputedRef<[number, number]> = computed<[number, number]>(() => [data.value?.homepage.data.place_coords.latitude as number, data.value?.homepage.data.place_coords.longitude as number]);
 
@@ -61,8 +73,8 @@ const pradinesCoordinates: ComputedRef<[number, number]> = computed<[number, num
     />
 
     <section
-      id="rates"
-      class="w-full bg-lights md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center "
+      id="tarifs"
+      class="w-full bg-rates md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center "
     >
       <div class="container flex items-center justify-center mx-auto">
         <div class="bg-white hover:bg-zinc-400 transition duration-300 shadow-xl rounded-xl p-4 text-center md:p-6 my-8" >
@@ -71,24 +83,23 @@ const pradinesCoordinates: ComputedRef<[number, number]> = computed<[number, num
       </div>
 
       <div class="max-w-screen-xl mx-auto p-5">
-        <div class="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 gap-10">
+        <div class="grid grid-cols-3 md:grid-cols-3 sm:grid-cols-2 gap-10">
           <RateComponent v-for="rate in data.rates" :rate="rate.data" />
         </div>
       </div>
-
     </section>
 
     <section
-      class="w-full md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center ">
+      class="w-full bg-program md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center ">
       <div class="container flex items-center justify-center mx-auto">
         <div class="bg-white hover:bg-zinc-400 transition duration-300 shadow-xl rounded-xl p-4 text-center md:p-6 my-8" >
           <h3 class="text-4xl uppercase">Programme</h3>
         </div>
       </div>
       <div class="max-w-screen-xl mx-auto p-5">
-        <div class="grid grid-cols-2 md:grid-cols-3 sm:grid-cols-2 gap-1">
+        <div class="grid grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-8">
+          <ProgramDayCard v-for="(events, day) in groupedByDay" :day="day" :events="events"  />
         </div>
-        <pre class="grid">{{ data.events }}</pre>
       </div>
     </section>
 
@@ -129,11 +140,7 @@ const pradinesCoordinates: ComputedRef<[number, number]> = computed<[number, num
       </div>
     </section>
 
-    <section
-        class="
-      w-full  md:py-52 py-28 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat
-      bg-center flex items-center justify-center
-    ">
+    <section class="w-full md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center">
       <div class="container flex items-center justify-center mx-auto">
         <div class="bg-white hover:bg-zinc-400 transition duration-300 shadow-xl rounded-xl p-4 text-center md:p-6 my-8" >
           <h3 class="text-4xl uppercase">Galerie</h3>
@@ -143,11 +150,7 @@ const pradinesCoordinates: ComputedRef<[number, number]> = computed<[number, num
       </div>
     </section>
 
-    <section
-        class="
-      w-full  md:py-52 py-28 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat
-      bg-center flex items-center justify-center
-    ">
+    <section class="w-full md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center">
       <div class="container flex items-center justify-center mx-auto">
         <div class="bg-white hover:bg-zinc-400 transition duration-300 shadow-xl rounded-xl p-4 text-center md:p-6 my-8" >
           <h3 class="text-4xl uppercase">Contact</h3>
@@ -161,8 +164,12 @@ const pradinesCoordinates: ComputedRef<[number, number]> = computed<[number, num
 </template>
 
 <style scoped>
-.bg-lights{
-  background-image: url('https://i.pinimg.com/originals/bd/05/8f/bd058fbaee7be1f65cd197a41d774d91.jpg')
+.bg-rates {
+  background-image: url('/img/bkg_2000.jpg')
+}
+
+.bg-program {
+  background-image: url('/img/bkg2_2000.jpg')
 }
 
 .bg-place {
