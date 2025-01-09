@@ -218,15 +218,26 @@ interface HomepageDocumentData {
   subscribe_link: prismic.LinkField;
 
   /**
-   * Lieu field in *Homepage*
+   * Nom du lieu field in *Homepage*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Nom du lieu
+   * - **API ID Path**: homepage.place_name
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  place_name: prismic.KeyTextField;
+
+  /**
+   * Coordonnées géographiques field in *Homepage*
    *
    * - **Field Type**: GeoPoint
    * - **Placeholder**: *None*
-   * - **API ID Path**: homepage.place_event
+   * - **API ID Path**: homepage.place_coords
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/field#geopoint
    */
-  place_event: prismic.GeoPointField;
+  place_coords: prismic.GeoPointField;
 
   /**
    * Slice Zone field in *Homepage*

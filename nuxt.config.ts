@@ -7,7 +7,12 @@ export default defineNuxtConfig({
   },  
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
-  modules: ["@nuxtjs/prismic", "@nuxtjs/tailwindcss", "@nuxtjs/i18n"],
+  modules: [
+    "@nuxtjs/prismic",
+    "@nuxtjs/tailwindcss",
+    "@nuxtjs/i18n",
+    "@nuxtjs/leaflet"
+  ],
   prismic: {
     endpoint: apiEndpoint || repositoryName
   },
