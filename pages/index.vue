@@ -74,6 +74,7 @@ useSeoMeta({
 <template>
   <div v-if="data">
     <HeroComponent
+      :isOpen="data.homepage.data.enable_site"
       :title-hero="data?.homepage.data.title"
       :subtitle="data?.homepage.data.subtitle"
       :date-start="data?.homepage.data.date_start"
@@ -82,97 +83,101 @@ useSeoMeta({
       :subscribe-link="data.homepage.data.subscribe_link"
     />
 
-    <section
-      id="tarifs"
-      class="w-full bg-rates md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center "
-    >
-      <div class="container flex items-center justify-center mx-auto">
-        <div class="bg-white hover:bg-zinc-400 transition duration-300 shadow-xl rounded-xl p-4 text-center md:p-6 my-8" >
-          <h3 class="text-4xl uppercase">Tarifs</h3>
+    <div v-if="true === data.homepage.data.enable_site">
+      <section
+          id="tarifs"
+          class="w-full bg-rates md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center "
+      >
+        <div class="container flex items-center justify-center mx-auto">
+          <div class="bg-white hover:bg-zinc-400 transition duration-300 shadow-xl rounded-xl p-4 text-center md:p-6 my-8" >
+            <h3 class="text-4xl uppercase">Tarifs</h3>
+          </div>
         </div>
-      </div>
 
-      <div class="max-w-screen-xl mx-auto p-5">
-        <div :class="`grid grid-cols-${gridRatesNumber} md:grid-cols-${gridRatesNumber} sm:grid-cols-1 gap-10`">
-          <RateComponent v-for="rate in data.rates" :rate="rate.data" />
+        <div class="max-w-screen-xl mx-auto p-5">
+          <div :class="`grid grid-cols-${gridRatesNumber} md:grid-cols-${gridRatesNumber} sm:grid-cols-1 gap-10`">
+            <RateComponent v-for="rate in data.rates" :rate="rate.data" />
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section
-      class="w-full bg-program md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center ">
-      <div class="container flex items-center justify-center mx-auto">
-        <div class="bg-white hover:bg-zinc-400 transition duration-300 shadow-xl rounded-xl p-4 text-center md:p-6 my-8" >
-          <h3 class="text-4xl uppercase">Programme</h3>
+      <section
+          class="w-full bg-program md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center ">
+        <div class="container flex items-center justify-center mx-auto">
+          <div class="bg-white hover:bg-zinc-400 transition duration-300 shadow-xl rounded-xl p-4 text-center md:p-6 my-8" >
+            <h3 class="text-4xl uppercase">Programme</h3>
+          </div>
         </div>
-      </div>
-      <div class="max-w-screen-xl mx-auto p-5">
-        <div class="grid grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-8">
-          <ProgramDayCard v-for="(events, day) in groupedByDay" :day="day" :events="events"  />
+        <div class="max-w-screen-xl mx-auto p-5">
+          <div class="grid grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-8">
+            <ProgramDayCard v-for="(events, day) in groupedByDay" :day="day" :events="events"  />
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="w-full bg-place md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center">
-      <div class="container flex items-center justify-center mx-auto">
-        <div class="bg-white hover:bg-zinc-400 transition duration-300 shadow-xl rounded-xl p-4 text-center md:p-6 my-8" >
-          <h3 class="text-4xl uppercase">Le lieu</h3>
+      <section class="w-full bg-place md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center">
+        <div class="container flex items-center justify-center mx-auto">
+          <div class="bg-white hover:bg-zinc-400 transition duration-300 shadow-xl rounded-xl p-4 text-center md:p-6 my-8" >
+            <h3 class="text-4xl uppercase">Le lieu</h3>
+          </div>
         </div>
-      </div>
 
-      <div class="max-w-screen-xl mx-auto p-5 wrapper antialiased text-gray-900">
-        <div>
-          <div class="relative px-4 ">
-            <div class="bg-white p-6 rounded-lg shadow-lg">
-              <h4 class="mt-1 text-xl font-semibold uppercase leading-tight truncate">{{ data.homepage.data.place_name }}</h4>
+        <div class="max-w-screen-xl mx-auto p-5 wrapper antialiased text-gray-900">
+          <div>
+            <div class="relative px-4 ">
+              <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h4 class="mt-1 text-xl font-semibold uppercase leading-tight truncate">{{ data.homepage.data.place_name }}</h4>
 
-              <div class="border-green-500 border-4 rounded-xl my-4"><LMap
-                  style="height: 600px"
-                  :zoom="15"
-                  :center="pradinesCoordinates"
-                  :use-global-leaflet="false"
-              >
-                <LTileLayer
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    attribution="&amp;copy; <a href=&quot;https://www.openstreetmap.org/&quot;>OpenStreetMap</a> contributors"
-                    layer-type="base"
-                    name="OpenStreetMap"
-                />
-                <LMarker :lat-lng="pradinesCoordinates" />
-              </LMap></div>
+                <div class="border-green-500 border-4 rounded-xl my-4"><LMap
+                    style="height: 600px"
+                    :zoom="15"
+                    :center="pradinesCoordinates"
+                    :use-global-leaflet="false"
+                >
+                  <LTileLayer
+                      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                      attribution="&amp;copy; <a href=&quot;https://www.openstreetmap.org/&quot;>OpenStreetMap</a> contributors"
+                      layer-type="base"
+                      name="OpenStreetMap"
+                  />
+                  <LMarker :lat-lng="pradinesCoordinates" />
+                </LMap></div>
 
-              <div class="mt-4">
-                <button class="bg-green-500 text-white py-2 px-12 rounded-full font-bold hover:bg-zinc-800">Site internet</button>
+                <div class="mt-4">
+                  <button class="bg-green-500 text-white py-2 px-12 rounded-full font-bold hover:bg-zinc-800">Site internet</button>
+                </div>
+              </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section class="w-full bg-zinc-400 bg-gallery md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center">
+        <div class="container flex items-center justify-center mx-auto">
+          <div class="bg-white hover:bg-zinc-400 transition duration-300 shadow-xl rounded-xl p-4 text-center md:p-6 my-8" >
+            <h3 class="text-4xl uppercase">Galerie</h3>
           </div>
         </div>
-      </div>
-    </section>
-
-    <section class="w-full bg-zinc-400 bg-gallery md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center">
-      <div class="container flex items-center justify-center mx-auto">
-        <div class="bg-white hover:bg-zinc-400 transition duration-300 shadow-xl rounded-xl p-4 text-center md:p-6 my-8" >
-          <h3 class="text-4xl uppercase">Galerie</h3>
+        <div class="max-w-screen-xl mx-auto p-5">
+          <ExpandableGalleryComponent
+              :images="images"
+              class="p-4"
+          />
         </div>
-      </div>
-      <div class="max-w-screen-xl mx-auto p-5">
-        <ExpandableGalleryComponent
-          :images="images"
-          class="p-4"
-        />
-      </div>
-    </section>
+      </section>
 
-    <section class="w-full md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center">
-      <div class="container flex items-center justify-center mx-auto">
-        <div class="bg-white hover:bg-zinc-400 transition duration-300 shadow-xl rounded-xl p-4 text-center md:p-6 my-8" >
-          <h3 class="text-4xl uppercase">Contact</h3>
+      <section class="w-full md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center">
+        <div class="container flex items-center justify-center mx-auto">
+          <div class="bg-white hover:bg-zinc-400 transition duration-300 shadow-xl rounded-xl p-4 text-center md:p-6 my-8" >
+            <h3 class="text-4xl uppercase">Contact</h3>
+          </div>
         </div>
-      </div>
-      <div class="max-w-screen-xl mx-auto p-5">
-      </div>
-    </section>
+        <div class="max-w-screen-xl mx-auto p-5">
+        </div>
+      </section>
+    </div>
+
+
 
   </div>
 </template>

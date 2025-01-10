@@ -7,6 +7,7 @@ const { t } = useI18n();
 const AuroraBackground = defineAsyncComponent(() => import('@/components/AuroraBackground.vue'))
 
 const props = defineProps<{
+  isOpen: boolean,
   titleHero: KeyTextField | undefined,
   subtitle: KeyTextField | undefined,
   dateStart: DateField | undefined,
@@ -47,7 +48,7 @@ const rangeDates: ComputedRef<string> = computed<string>(() => `Du ${useFormatIn
       <div class="py-8 text-base font-extralight md:text-3xl text-neutral-200">
         {{ subtitle }}
       </div>
-      <div class="inline-flex gap-24 my-16 md:flex-row">
+      <div class="inline-flex gap-24 my-16 md:flex-row" v-if="isOpen">
         <button
           class="w-fit py-4 px-12 bg-zinc-800 border-solid border-2 border-green-500 text-white rounded-full font-bold text-2xl"
           role="link"
@@ -60,6 +61,14 @@ const rangeDates: ComputedRef<string> = computed<string>(() => `Du ${useFormatIn
           role="button"
           class="w-fit py-4 px-12 bg-green-500 text-white rounded-full font-bold text-2xl"
         ></prismic-link>
+      </div>
+      <div v-else-if="!isOpen">
+        <button
+            class="w-fit py-4 px-12 bg-zinc-800 border-solid border-2 border-green-500 text-white rounded-full font-bold text-2xl"
+            role="link"
+        >
+          Ouverture prochainement de la billeterie
+        </button>
       </div>
 
     </div>
