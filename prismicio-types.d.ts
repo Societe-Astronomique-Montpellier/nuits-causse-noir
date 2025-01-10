@@ -133,6 +133,21 @@ interface EventDocumentData {
 export type EventDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<EventDocumentData>, "event", Lang>;
 
+/**
+ * Item in *Homepage → Galerie*
+ */
+export interface HomepageDocumentDataGalleryItem {
+  /**
+   * Image field in *Homepage → Galerie*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: homepage.gallery[].image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+}
+
 type HomepageDocumentDataSlicesSlice = never;
 
 /**
@@ -238,6 +253,17 @@ interface HomepageDocumentData {
    * - **Documentation**: https://prismic.io/docs/field#geopoint
    */
   place_coords: prismic.GeoPointField;
+
+  /**
+   * Galerie field in *Homepage*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: homepage.gallery[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  gallery: prismic.GroupField<Simplify<HomepageDocumentDataGalleryItem>>;
 
   /**
    * Slice Zone field in *Homepage*
@@ -454,6 +480,7 @@ declare module "@prismicio/client" {
       EventDocumentDataSlicesSlice,
       HomepageDocument,
       HomepageDocumentData,
+      HomepageDocumentDataGalleryItem,
       HomepageDocumentDataSlicesSlice,
       RateDocument,
       RateDocumentData,

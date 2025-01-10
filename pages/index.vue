@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import type {AllDocumentTypes, EventDocument, HomepageDocument, RateDocument} from "~/prismicio-types";
+import {isFilled} from "@prismicio/helpers";
+import type {ImageField} from "@prismicio/client";
 
 const { locale } = useI18n();
 const prismic = usePrismic();
@@ -7,6 +9,7 @@ const prismic = usePrismic();
 definePageMeta({
   layout: "home",
 });
+
 
 const prismicFetchData = async() => {
   const [homepage, rates, events] = await Promise.all([
@@ -39,9 +42,12 @@ const { data, error } = useAsyncData('data', prismicFetchData);
 
 const HeroComponent = defineAsyncComponent(() => import('@/components/hero.vue'))
 const RateComponent = defineAsyncComponent(() => import('@/components/RateCard.vue'));
+const ExpandableGalleryComponent = defineAsyncComponent(() => import('@/components/ExpandableGallery.vue'));
+
+const gridRatesNumber: ComputedRef<number> = computed<number>(() => (0 === 2 % (data.value?.rates?.length ?? 0)) ? 2: 3);
 
 type GroupedByDay = Record<string, EventDocument[]>;
-const groupedByDay: ComputedRef<GroupedByDay> = computed<GroupedByDay>(() => {
+const groupedByDay: ComputedRef<GroupedByDay | undefined> = computed<GroupedByDay | undefined>(() => {
   return data.value?.events.reduce<GroupedByDay>((acc: GroupedByDay, event: EventDocument) => {
     const day = event.data.date_event?.split('T')[0]; // Extract the date part (YYYY-MM-DD)
     if (day !== undefined && !acc[day]) {
@@ -56,10 +62,14 @@ const groupedByDay: ComputedRef<GroupedByDay> = computed<GroupedByDay>(() => {
 });
 
 const pradinesCoordinates: ComputedRef<[number, number]> = computed<[number, number]>(() => [data.value?.homepage.data.place_coords.latitude as number, data.value?.homepage.data.place_coords.longitude as number]);
+const images: string[] | undefined = data.value?.homepage.data.gallery.map(image => image.image.url as string);
 
-// useSeoMeta({
-//   title: prismic.asText(data?.homepage.data.title)
-// });
+const metaTitle: ComputedRef<string | null> = computed<string | null>(() => isFilled.keyText(data.value?.homepage.data.meta_title) ? `${data.value?.homepage.data.meta_title}`: `${data.value?.homepage.data.title}`);
+const metaDesc: ComputedRef<string | null> = computed<string | null>(() => isFilled.keyText(data.value?.homepage.data.meta_description) ? `${data.value?.homepage.data.meta_description}`: `${data.value?.homepage.data.subtitle}`);
+useSeoMeta({
+  title: (): string | null => unref(metaTitle),
+  description: (): string | null  => unref(metaDesc)
+});
 </script>
 <template>
   <div v-if="data">
@@ -83,7 +93,7 @@ const pradinesCoordinates: ComputedRef<[number, number]> = computed<[number, num
       </div>
 
       <div class="max-w-screen-xl mx-auto p-5">
-        <div class="grid grid-cols-3 md:grid-cols-3 sm:grid-cols-2 gap-10">
+        <div :class="`grid grid-cols-${gridRatesNumber} md:grid-cols-${gridRatesNumber} sm:grid-cols-1 gap-10`">
           <RateComponent v-for="rate in data.rates" :rate="rate.data" />
         </div>
       </div>
@@ -140,13 +150,17 @@ const pradinesCoordinates: ComputedRef<[number, number]> = computed<[number, num
       </div>
     </section>
 
-    <section class="w-full md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center">
+    <section class="w-full bg-zinc-400 bg-gallery md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center">
       <div class="container flex items-center justify-center mx-auto">
         <div class="bg-white hover:bg-zinc-400 transition duration-300 shadow-xl rounded-xl p-4 text-center md:p-6 my-8" >
           <h3 class="text-4xl uppercase">Galerie</h3>
         </div>
       </div>
       <div class="max-w-screen-xl mx-auto p-5">
+        <ExpandableGalleryComponent
+          :images="images"
+          class="p-4"
+        />
       </div>
     </section>
 
@@ -174,5 +188,9 @@ const pradinesCoordinates: ComputedRef<[number, number]> = computed<[number, num
 
 .bg-place {
   background-image: url('https://www.nuits-causse-noir.fr/img/pradines.jpg')
+}
+
+.bg-gallery {
+  background-image: url("/img/zebra.png");
 }
 </style>

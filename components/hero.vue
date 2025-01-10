@@ -33,12 +33,12 @@ const rangeDates: ComputedRef<string> = computed<string>(() => `Du ${useFormatIn
           ease: 'easeInOut',
         },
       }"
-        class="relative flex flex-col items-center justify-center gap-16 px-8"
+        class="relative flex flex-col items-center align-middle h-screen p-32"
     >
       <prismic-image
         v-if="isFilled.image(logo)"
         :field="logo"
-        class="w-72 relative flex flex-col items-center justify-center"
+        class="w-80 relative flex flex-col items-center justify-center"
         :alt="titleHero"
       ></prismic-image>
       <h2 class="py-8 text-base font-extralight md:text-4xl text-neutral-200">

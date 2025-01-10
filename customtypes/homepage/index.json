@@ -82,6 +82,23 @@
           "label": "Coordonnées géographiques"
         }
       },
+      "gallery": {
+        "type": "Group",
+        "config": {
+          "label": "Galerie",
+          "repeat": true,
+          "fields": {
+            "image": {
+              "type": "Image",
+              "config": {
+                "label": "Image",
+                "constraint": {},
+                "thumbnails": []
+              }
+            }
+          }
+        }
+      },
       "slices": {
         "type": "Slices",
         "fieldset": "Slice Zone",
