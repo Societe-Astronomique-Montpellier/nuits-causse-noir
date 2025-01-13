@@ -98,7 +98,7 @@ useSeoMeta({
               <prismic-rich-text
                   :field="data.homepage.data.description"
                   :serializer="richTextSerializer"
-                  class="max-w-2xl text-neutral-200 mb-6 font-thin lg:mb-8 md:text-lg lg:text-xl"
+                  class="max-w-2xl text-neutral-200 mb-6 font-thin lg:mb-8 text-lg"
               />
             </div>
             <div class="lg:mt-0 lg:col-span-5 lg:flex rounded-lg">

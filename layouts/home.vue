@@ -1,5 +1,6 @@
 <script setup lang="ts">
 
+const BackToTop =  defineAsyncComponent(() => import( "@/components/layouts/BackToTop.vue"));
 </script>
 
 <template>
@@ -8,6 +9,7 @@
     <div class="flex-fill">
       <slot />
     </div>
+    <BackToTop />
     <footer></footer>
   </div>
 </template>

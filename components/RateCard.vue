@@ -16,7 +16,7 @@ const { rate } = toRefs(props)
     <p v-if="rate.camping" class="text-gray-500 text-sm mt-2">{{ rate.camping }}</p>
     <div class="flex items-center justify-between mt-4">
       <span class="text-gray-900 font-bold text-lg">Prix</span>
-      <button class="bg-green-500 text-white py-2 px-12 rounded-full font-bold hover:bg-zinc-800">{{ rate.price }}&euro;</button>
+      <button class="bg-green-500 text-neutral-200 py-2 px-12 rounded-full font-bold hover:bg-zinc-800">{{ rate.price }}&euro;</button>
     </div>
   </div>
 </template>

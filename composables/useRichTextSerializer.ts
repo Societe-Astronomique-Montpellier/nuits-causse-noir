@@ -6,7 +6,7 @@ export const useRichTextSerializer = (): HTMLMapSerializer => {
 
   return {
     paragraph: ({ children }) =>
-      `<p class="text-justify text-base text-neutral-200 leading-8 mt-2 my-5 ">${children}</p>`,
+      `<p class="text-justify text-neutral-200 leading-8 mt-2 my-5 ">${children}</p>`,
     heading1: ({ children }) => `<h1>${children}</h1>`,
     heading2: ({ children }) =>
       `<h2 class="text-zinc-500 font-bold text-4xl mb-2 dark:text-gray-400">${children}</h2>`,
