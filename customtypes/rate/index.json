@@ -57,6 +57,13 @@
           "default_value": true
         }
       },
+      "position": {
+        "type": "Number",
+        "config": {
+          "label": "Position d'affichage",
+          "placeholder": "Position d'affichage"
+        }
+      },
       "slices": {
         "type": "Slices",
         "fieldset": "Slice Zone",

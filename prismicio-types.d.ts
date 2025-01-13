@@ -420,6 +420,17 @@ interface RateDocumentData {
   display: prismic.BooleanField;
 
   /**
+   * Position d'affichage field in *Tarif*
+   *
+   * - **Field Type**: Number
+   * - **Placeholder**: Position d'affichage
+   * - **API ID Path**: rate.position
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#number
+   */
+  position: prismic.NumberField;
+
+  /**
    * Slice Zone field in *Tarif*
    *
    * - **Field Type**: Slice Zone

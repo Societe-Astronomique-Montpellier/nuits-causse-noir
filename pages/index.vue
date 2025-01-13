@@ -22,7 +22,11 @@ const prismicFetchData = async() => {
         lang: locale.value,
         filters: [
             prismic.filter.at('my.rate.display', true)
-        ]
+        ],
+        orderings: {
+          field: "my.rate.position",
+          direction: "asc",
+        }
       }) as RateDocument[]
     ),
     (
@@ -43,6 +47,8 @@ const HeroComponent = defineAsyncComponent(() => import('@/components/hero.vue')
 const ImageCopyright = defineAsyncComponent(() => import('@/components/layouts/imageCopyright.vue'))
 const RateComponent = defineAsyncComponent(() => import('@/components/RateCard.vue'));
 const ExpandableGalleryComponent = defineAsyncComponent(() => import('@/components/ExpandableGallery.vue'));
+
+const richTextSerializer = useRichTextSerializer();
 
 const optimizedImage: ComputedRef<ImageField<never> | undefined> = computed<ImageField<never> | undefined>(() => data?.value?.homepage.data.image_description);
 const gridRatesNumber: ComputedRef<number> = computed<number>(() => (0 === 2 % (data.value?.rates?.length ?? 0)) ? 2: 3);
@@ -73,7 +79,7 @@ useSeoMeta({
 });
 </script>
 <template>
-  <div v-if="data">
+  <div v-if="data" class="scroll-smooth">
     <HeroComponent
       :isOpen="data.homepage.data.enable_site"
       :title-hero="data?.homepage.data.title"
@@ -87,11 +93,12 @@ useSeoMeta({
     <div v-if="true === data.homepage.data.enable_site">
       <section class="w-full md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center">
         <div class="max-w-screen-xl mx-auto p-5">
-          <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
+          <div class="grid max-w-screen-xl px-4 py-4 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
             <div class="mr-auto place-self-center lg:col-span-7">
               <prismic-rich-text
                   :field="data.homepage.data.description"
-                  class="max-w-2xl mb-6 font-light text-zinc-300 dark:text-slate-400 lg:mb-8 md:text-lg lg:text-xl"
+                  :serializer="richTextSerializer"
+                  class="max-w-2xl text-neutral-200 mb-6 font-thin lg:mb-8 md:text-lg lg:text-xl"
               />
             </div>
             <div class="lg:mt-0 lg:col-span-5 lg:flex rounded-lg">
