@@ -45,7 +45,7 @@ const rangeDates: ComputedRef<string> = computed<string>(() => `Du ${useFormatIn
       <h2 class="py-8 text-base font-extralight md:text-4xl text-neutral-200">
         {{ rangeDates }}
       </h2>
-      <div class="py-8 text-base font-extralight md:text-3xl text-neutral-200">
+      <div class="py-8 text-base text-center font-extralight md:text-3xl text-neutral-200">
         {{ subtitle }}
       </div>
       <div class="inline-flex gap-24 my-16 md:flex-row" v-if="isOpen">

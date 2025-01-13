@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type {AllDocumentTypes, EventDocument, HomepageDocument, RateDocument} from "~/prismicio-types";
 import {isFilled} from "@prismicio/helpers";
-import type {ImageField} from "@prismicio/client";
+import type { ImageField, LinkField } from "@prismicio/client";
 
 const { locale } = useI18n();
 const prismic = usePrismic();
@@ -9,7 +9,6 @@ const prismic = usePrismic();
 definePageMeta({
   layout: "home",
 });
-
 
 const prismicFetchData = async() => {
   const [homepage, rates, events] = await Promise.all([
@@ -41,9 +40,11 @@ const prismicFetchData = async() => {
 const { data, error } = useAsyncData('data', prismicFetchData);
 
 const HeroComponent = defineAsyncComponent(() => import('@/components/hero.vue'))
+const ImageCopyright = defineAsyncComponent(() => import('@/components/layouts/imageCopyright.vue'))
 const RateComponent = defineAsyncComponent(() => import('@/components/RateCard.vue'));
 const ExpandableGalleryComponent = defineAsyncComponent(() => import('@/components/ExpandableGallery.vue'));
 
+const optimizedImage: ComputedRef<ImageField<never> | undefined> = computed<ImageField<never> | undefined>(() => data?.value?.homepage.data.image_description);
 const gridRatesNumber: ComputedRef<number> = computed<number>(() => (0 === 2 % (data.value?.rates?.length ?? 0)) ? 2: 3);
 
 type GroupedByDay = Record<string, EventDocument[]>;
@@ -84,6 +85,23 @@ useSeoMeta({
     />
 
     <div v-if="true === data.homepage.data.enable_site">
+      <section class="w-full md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center">
+        <div class="max-w-screen-xl mx-auto p-5">
+          <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
+            <div class="mr-auto place-self-center lg:col-span-7">
+              <prismic-rich-text
+                  :field="data.homepage.data.description"
+                  class="max-w-2xl mb-6 font-light text-zinc-300 dark:text-slate-400 lg:mb-8 md:text-lg lg:text-xl"
+              />
+            </div>
+            <div class="lg:mt-0 lg:col-span-5 lg:flex rounded-lg">
+              <ImageCopyright :image="optimizedImage" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+
       <section
           id="tarifs"
           class="w-full bg-rates md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center "
@@ -93,13 +111,14 @@ useSeoMeta({
             <h3 class="text-4xl uppercase">Tarifs</h3>
           </div>
         </div>
-
         <div class="max-w-screen-xl mx-auto p-5">
           <div :class="`grid grid-cols-${gridRatesNumber} md:grid-cols-${gridRatesNumber} sm:grid-cols-1 gap-10`">
             <RateComponent v-for="rate in data.rates" :rate="rate.data" />
           </div>
         </div>
       </section>
+
+
 
       <section
           class="w-full bg-program md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center ">

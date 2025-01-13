@@ -233,6 +233,28 @@ interface HomepageDocumentData {
   subscribe_link: prismic.LinkField;
 
   /**
+   * Texte de présentation field in *Homepage*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: Présentation
+   * - **API ID Path**: homepage.description
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  description: prismic.RichTextField;
+
+  /**
+   * Imagede  présentation field in *Homepage*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: homepage.image_description
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image_description: prismic.ImageField<never>;
+
+  /**
    * Nom du lieu field in *Homepage*
    *
    * - **Field Type**: Text

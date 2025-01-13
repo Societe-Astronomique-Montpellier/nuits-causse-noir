@@ -69,6 +69,23 @@
           "repeat": false
         }
       },
+      "description": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Texte de présentation",
+          "placeholder": "Présentation",
+          "allowTargetBlank": false,
+          "multi": "paragraph,heading3,heading4,heading5,heading6,strong,em,hyperlink,list-item,o-list-item,rtl"
+        }
+      },
+      "image_description": {
+        "type": "Image",
+        "config": {
+          "label": "Imagede  présentation",
+          "constraint": {},
+          "thumbnails": []
+        }
+      },
       "place_name": {
         "type": "Text",
         "config": {
