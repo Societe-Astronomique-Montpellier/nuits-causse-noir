@@ -49,6 +49,7 @@ const HeroComponent = defineAsyncComponent(() => import('@/components/hero.vue')
 const ImageCopyright = defineAsyncComponent(() => import('@/components/layouts/imageCopyright.vue'))
 const RateComponent = defineAsyncComponent(() => import('@/components/RateCard.vue'));
 const ExpandableGalleryComponent = defineAsyncComponent(() => import('@/components/ExpandableGallery.vue'));
+const YoutubeComponent = defineAsyncComponent(() => import('@/components/layouts/YoutubeVideo.vue'))
 
 const richTextSerializer = useRichTextSerializer();
 
@@ -204,17 +205,7 @@ useSeoMeta({
             class="p-4"
           />
 
-          <div class="flex justify-center items-center p-4">
-            <div class="aspect-w-16 aspect-h-12 w-full max-w-3xl">
-              <iframe
-                :src="youtubeLink"
-                class="w-full h-full rounded-lg shadow-lg"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-              ></iframe>
-            </div>
-          </div>
+          <youtube-component youtubeId="LbCJc-ldgd4" />
 
         </div>
       </section>

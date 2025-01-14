@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     "@nuxtjs/i18n",
     "@nuxtjs/leaflet",
     "@nuxt/icon",
+    "@nuxt/scripts",
   ],
   prismic: {
     endpoint: apiEndpoint || repositoryName
