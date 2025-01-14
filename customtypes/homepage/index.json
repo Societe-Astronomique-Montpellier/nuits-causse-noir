@@ -81,7 +81,7 @@
       "image_description": {
         "type": "Image",
         "config": {
-          "label": "Imagede  présentation",
+          "label": "Image de présentation",
           "constraint": {},
           "thumbnails": []
         }
@@ -114,6 +114,17 @@
               }
             }
           }
+        }
+      },
+      "youtube_link": {
+        "type": "Link",
+        "config": {
+          "label": "Lien youtube",
+          "placeholder": "Lien youtube",
+          "select": null,
+          "allowTargetBlank": false,
+          "allowText": false,
+          "repeat": false
         }
       },
       "slices": {

@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import type {AllDocumentTypes, EventDocument, HomepageDocument, RateDocument} from "~/prismicio-types";
-import {isFilled} from "@prismicio/helpers";
-import type { ImageField, LinkField } from "@prismicio/client";
+import {isFilled, asLink} from "@prismicio/helpers";
+import { type ImageField, type LinkField} from "@prismicio/client";
+import type {ComputedRef} from "vue";
+import {LinkType} from "@prismicio/types";
 
 const { locale } = useI18n();
 const prismic = usePrismic();
@@ -69,7 +71,13 @@ const groupedByDay: ComputedRef<GroupedByDay | undefined> = computed<GroupedByDa
 });
 
 const pradinesCoordinates: ComputedRef<[number, number]> = computed<[number, number]>(() => [data.value?.homepage.data.place_coords.latitude as number, data.value?.homepage.data.place_coords.longitude as number]);
-const images: string[] | undefined = data.value?.homepage.data.gallery.map(image => image.image.url as string);
+const images: ComputedRef<string[] | undefined> = computed<string[] | undefined>(() => data.value?.homepage.data.gallery.map(image => image.image.url as string));
+const youtubeLink: ComputedRef<string | undefined> = computed<string | undefined>(() => {
+  const youtubeLinkField: LinkField | undefined = data.value?.homepage.data.youtube_link;
+  if (isFilled.link(youtubeLinkField) && youtubeLinkField.link_type === LinkType.Web) {
+    return asLink(youtubeLinkField) as string;
+  }
+});
 
 const metaTitle: ComputedRef<string | null> = computed<string | null>(() => isFilled.keyText(data.value?.homepage.data.meta_title) ? `${data.value?.homepage.data.meta_title}`: `${data.value?.homepage.data.title}`);
 const metaDesc: ComputedRef<string | null> = computed<string | null>(() => isFilled.keyText(data.value?.homepage.data.meta_description) ? `${data.value?.homepage.data.meta_description}`: `${data.value?.homepage.data.subtitle}`);
@@ -79,6 +87,7 @@ useSeoMeta({
 });
 </script>
 <template>
+
   <div v-if="data" class="scroll-smooth">
     <HeroComponent
       :isOpen="data.homepage.data.enable_site"
@@ -91,7 +100,8 @@ useSeoMeta({
     />
 
     <div v-if="true === data.homepage.data.enable_site">
-      <section class="w-full md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center">
+
+      <section id="description" class="w-full md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center">
         <div class="max-w-screen-xl mx-auto p-5">
           <div class="grid max-w-screen-xl px-4 py-4 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
             <div class="mr-auto place-self-center lg:col-span-7">
@@ -128,6 +138,7 @@ useSeoMeta({
 
 
       <section
+          id="programme"
           class="w-full bg-program md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center ">
         <div class="container flex items-center justify-center mx-auto">
           <div class="bg-white hover:bg-zinc-400 transition duration-300 shadow-xl rounded-xl p-4 text-center md:p-6 my-8" >
@@ -141,7 +152,8 @@ useSeoMeta({
         </div>
       </section>
 
-      <section class="w-full bg-place md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center">
+
+      <section id="lieu" class="w-full bg-place md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center">
         <div class="container flex items-center justify-center mx-auto">
           <div class="bg-white hover:bg-zinc-400 transition duration-300 shadow-xl rounded-xl p-4 text-center md:p-6 my-8" >
             <h3 class="text-4xl uppercase">Le lieu</h3>
@@ -178,7 +190,8 @@ useSeoMeta({
         </div>
       </section>
 
-      <section class="w-full bg-zinc-400 bg-gallery md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center">
+
+      <section id="galerie" class="w-full bg-zinc-400 bg-gallery md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center">
         <div class="container flex items-center justify-center mx-auto">
           <div class="bg-white hover:bg-zinc-400 transition duration-300 shadow-xl rounded-xl p-4 text-center md:p-6 my-8" >
             <h3 class="text-4xl uppercase">Galerie</h3>
@@ -186,13 +199,27 @@ useSeoMeta({
         </div>
         <div class="max-w-screen-xl mx-auto p-5">
           <ExpandableGalleryComponent
-              :images="images"
-              class="p-4"
+            v-if="images"
+            :images="images"
+            class="p-4"
           />
+
+          <div class="flex justify-center items-center p-4">
+            <div class="aspect-w-16 aspect-h-12 w-full max-w-3xl">
+              <iframe
+                :src="youtubeLink"
+                class="w-full h-full rounded-lg shadow-lg"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+
         </div>
       </section>
 
-      <section class="w-full md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center">
+      <section id="contact" class="w-full md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center">
         <div class="container flex items-center justify-center mx-auto">
           <div class="bg-white hover:bg-zinc-400 transition duration-300 shadow-xl rounded-xl p-4 text-center md:p-6 my-8" >
             <h3 class="text-4xl uppercase">Contact</h3>

@@ -244,7 +244,7 @@ interface HomepageDocumentData {
   description: prismic.RichTextField;
 
   /**
-   * Imagede  présentation field in *Homepage*
+   * Image de présentation field in *Homepage*
    *
    * - **Field Type**: Image
    * - **Placeholder**: *None*
@@ -286,6 +286,17 @@ interface HomepageDocumentData {
    * - **Documentation**: https://prismic.io/docs/field#group
    */
   gallery: prismic.GroupField<Simplify<HomepageDocumentDataGalleryItem>>;
+
+  /**
+   * Lien youtube field in *Homepage*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: Lien youtube
+   * - **API ID Path**: homepage.youtube_link
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  youtube_link: prismic.LinkField;
 
   /**
    * Slice Zone field in *Homepage*
