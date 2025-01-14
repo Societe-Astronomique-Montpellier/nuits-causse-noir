@@ -73,11 +73,14 @@ const groupedByDay: ComputedRef<GroupedByDay | undefined> = computed<GroupedByDa
 
 const pradinesCoordinates: ComputedRef<[number, number]> = computed<[number, number]>(() => [data.value?.homepage.data.place_coords.latitude as number, data.value?.homepage.data.place_coords.longitude as number]);
 const images: ComputedRef<string[] | undefined> = computed<string[] | undefined>(() => data.value?.homepage.data.gallery.map(image => image.image.url as string));
-const youtubeLink: ComputedRef<string | undefined> = computed<string | undefined>(() => {
+const youtubeVideoId: ComputedRef<string | null> = computed<string | null>(() => {
   const youtubeLinkField: LinkField | undefined = data.value?.homepage.data.youtube_link;
   if (isFilled.link(youtubeLinkField) && youtubeLinkField.link_type === LinkType.Web) {
-    return asLink(youtubeLinkField) as string;
+    const youtubeLink = asLink(youtubeLinkField) as string;
+    return (new URL(youtubeLink).searchParams.get("v"));
   }
+
+  return null;
 });
 
 const metaTitle: ComputedRef<string | null> = computed<string | null>(() => isFilled.keyText(data.value?.homepage.data.meta_title) ? `${data.value?.homepage.data.meta_title}`: `${data.value?.homepage.data.title}`);
@@ -205,7 +208,7 @@ useSeoMeta({
             class="p-4"
           />
 
-          <youtube-component youtubeId="LbCJc-ldgd4" />
+          <youtube-component v-if="null !== youtubeVideoId" :youtubeId="youtubeVideoId" />
 
         </div>
       </section>
