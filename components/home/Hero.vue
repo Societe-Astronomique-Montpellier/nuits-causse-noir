@@ -4,7 +4,7 @@ import type {ComputedRef} from "vue";
 import { isFilled } from "@prismicio/helpers";
 
 const { t } = useI18n();
-const AuroraBackground = defineAsyncComponent(() => import('@/components/AuroraBackground.vue'))
+const AuroraBackground = defineAsyncComponent(() => import('~/components/AuroraBackground.vue'))
 
 const props = defineProps<{
   isOpen: boolean,
@@ -58,7 +58,7 @@ const rangeDates: ComputedRef<string> = computed<string>(() => `Du ${useFormatIn
         </button>
       </div>
 
-      <div id="section05" class="demo">
+      <div id="section05" class="demo absolute bottom-2">
         <a href="#description"><span></span></a>
       </div>
     </div>
@@ -88,8 +88,6 @@ const rangeDates: ComputedRef<string> = computed<string>(() => `Du ${useFormatIn
 }
 
 #section05 a span {
-  position: absolute;
-  top: 0;
   left: 50%;
   width: 24px;
   height: 24px;

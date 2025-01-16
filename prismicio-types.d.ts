@@ -364,6 +364,29 @@ type RateDocumentDataSlicesSlice = never;
  */
 interface RateDocumentData {
   /**
+   * Position d'affichage field in *Tarif*
+   *
+   * - **Field Type**: Number
+   * - **Placeholder**: Position d'affichage
+   * - **API ID Path**: rate.position
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#number
+   */
+  position: prismic.NumberField;
+
+  /**
+   * Afficher field in *Tarif*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: true
+   * - **API ID Path**: rate.display
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#boolean
+   */
+  display: prismic.BooleanField;
+
+  /**
    * Titre field in *Tarif*
    *
    * - **Field Type**: Text
@@ -383,7 +406,7 @@ interface RateDocumentData {
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/field#image
    */
-  image: prismic.ImageField<never>;
+  image: prismic.ImageField<"vignette">;
 
   /**
    * Description field in *Tarif*
@@ -419,27 +442,26 @@ interface RateDocumentData {
   camping: prismic.KeyTextField;
 
   /**
-   * Afficher field in *Tarif*
-   *
-   * - **Field Type**: Boolean
-   * - **Placeholder**: *None*
-   * - **Default Value**: true
-   * - **API ID Path**: rate.display
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#boolean
-   */
-  display: prismic.BooleanField;
-
-  /**
-   * Position d'affichage field in *Tarif*
+   * Nombre de nuits field in *Tarif*
    *
    * - **Field Type**: Number
-   * - **Placeholder**: Position d'affichage
-   * - **API ID Path**: rate.position
+   * - **Placeholder**: Nombre de nuits
+   * - **API ID Path**: rate.nights
    * - **Tab**: Main
    * - **Documentation**: https://prismic.io/docs/field#number
    */
-  position: prismic.NumberField;
+  nights: prismic.NumberField;
+
+  /**
+   * Nombre de jours field in *Tarif*
+   *
+   * - **Field Type**: Number
+   * - **Placeholder**: Nombre de jours
+   * - **API ID Path**: rate.days
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#number
+   */
+  days: prismic.NumberField;
 
   /**
    * Slice Zone field in *Tarif*

@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import type {  EventDocument} from "~/prismicio-types";
 import type {DateField} from "@prismicio/client";
-import {color} from "style-value-types";
 import type {TimestampField} from "@prismicio/types";
 
-const props = defineProps<{ day: string, events: EventDocument[] }>();
+const props = defineProps<{ day: string | number, events: EventDocument[] }>();
 const { day, events } = toRefs(props);
 
 type EventType = "Activitée" | "Conférence" | "Atelier" | "Nuit d'observation";
@@ -49,8 +48,8 @@ const getStyle = (type: string | null): string => {
 
 const getTime = (dateEvent: TimestampField): string => {
   const date = new Date(dateEvent as string);
-  const hours = date.getUTCHours().toString().padStart(2, '0');   // Get hours in UTC
-  const minutes = date.getUTCMinutes().toString().padStart(2, '0');
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
 
   return `${hours}H${minutes}`;
 }

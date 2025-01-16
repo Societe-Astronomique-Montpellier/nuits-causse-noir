@@ -12,6 +12,22 @@
           "label": "UID"
         }
       },
+      "position": {
+        "type": "Number",
+        "config": {
+          "label": "Position d'affichage",
+          "placeholder": "Position d'affichage"
+        }
+      },
+      "display": {
+        "type": "Boolean",
+        "config": {
+          "label": "Afficher",
+          "placeholder_false": "Masquer",
+          "placeholder_true": "Afficher",
+          "default_value": true
+        }
+      },
       "title": {
         "type": "Text",
         "config": {
@@ -24,7 +40,13 @@
         "config": {
           "label": "Image",
           "constraint": {},
-          "thumbnails": []
+          "thumbnails": [
+            {
+              "name": "vignette",
+              "width": 512,
+              "height": null
+            }
+          ]
         }
       },
       "description": {
@@ -48,20 +70,18 @@
           "placeholder": "Camping"
         }
       },
-      "display": {
-        "type": "Boolean",
-        "config": {
-          "label": "Afficher",
-          "placeholder_false": "Masquer",
-          "placeholder_true": "Afficher",
-          "default_value": true
-        }
-      },
-      "position": {
+      "nights": {
         "type": "Number",
         "config": {
-          "label": "Position d'affichage",
-          "placeholder": "Position d'affichage"
+          "label": "Nombre de nuits",
+          "placeholder": "Nombre de nuits"
+        }
+      },
+      "days": {
+        "type": "Number",
+        "config": {
+          "label": "Nombre de jours",
+          "placeholder": "Nombre de jours"
         }
       },
       "slices": {
