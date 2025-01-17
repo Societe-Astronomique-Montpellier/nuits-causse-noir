@@ -53,11 +53,13 @@ const prismicFetchData = async() => {
 const { data, error } = useAsyncData('data', prismicFetchData);
 
 const Hero = defineAsyncComponent(() => import('@/components/home/Hero.vue'))
+const TitleSectionHome = defineAsyncComponent(() => import('@/components/layouts/TitleSectionHome.vue'));
 const Description = defineAsyncComponent(() => import('@/components/home/Description.vue'));
 const Rates = defineAsyncComponent(() => import('@/components/home/Rates.vue'));
 const Program = defineAsyncComponent(() => import('@/components/home/Program.vue'));
 const Place = defineAsyncComponent(() => import('@/components/home/Place.vue'));
 const Gallery = defineAsyncComponent(() => import('@/components/home/Gallery.vue'))
+const ContactForm = defineAsyncComponent(() => import('@/components/home/ContactForm.vue'));
 
 // Description component
 const description: ComputedRef<RichTextField | undefined> = computed<RichTextField | undefined>(() => data.value?.homepage.data.description)
@@ -177,11 +179,7 @@ useSeoMeta({
         id="tarifs"
         class="w-full md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center bg-rates "
       >
-        <div class="container flex items-center justify-center mx-auto">
-          <div class="bg-white hover:bg-zinc-400 transition duration-300 shadow-xl rounded-xl p-4 text-center md:p-6 my-8" >
-            <h3 class="text-4xl uppercase">Tarifs</h3>
-          </div>
-        </div>
+        <TitleSectionHome title="Tarifs" customClass="" />
         <Rates :data="{gridRatesNumber: gridRatesNumber, listRates: data.rates}" />
       </section>
 
@@ -189,11 +187,7 @@ useSeoMeta({
           id="programme"
           class="w-full md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center bg-program"
       >
-        <div class="container flex items-center justify-center mx-auto">
-          <div class="bg-white hover:bg-zinc-400 transition duration-300 shadow-xl rounded-xl p-4 text-center md:p-6 my-8" >
-            <h3 class="text-4xl uppercase">Programme</h3>
-          </div>
-        </div>
+        <TitleSectionHome title="Programme" customClass="" />
         <Program :data="{events: groupedByDay}" />
       </section>
 
@@ -201,37 +195,25 @@ useSeoMeta({
           id="lieu"
           class="w-full md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center bg-place"
       >
-        <div class="container flex items-center justify-center mx-auto">
-          <div class="bg-white hover:bg-zinc-400 transition duration-300 shadow-xl rounded-xl p-4 text-center md:p-6 my-8" >
-            <h3 class="text-4xl uppercase">Le lieu</h3>
-          </div>
-        </div>
+        <TitleSectionHome title="Le lieu" customClass="" />
         <Place :data="{title: data.homepage.data.place_name, coordinate: pradinesCoordinates}" />
       </section>
 
 
       <section
         id="galery"
-        class="w-full md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center bg-gallery "
+        class="w-full md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center bg-gallery"
       >
-        <div class="container flex items-center justify-center mx-auto">
-          <div class="bg-white hover:bg-zinc-400 transition duration-300 shadow-xl rounded-xl p-4 text-center md:p-6 my-8" >
-            <h3 class="text-4xl uppercase">Galerie</h3>
-          </div>
-        </div>
+        <TitleSectionHome title="Galerie" customClass="" />
         <Gallery :data="{ images: images, youtubeVideoId: youtubeVideoId}" />
       </section>
 
       <section
-          id="contact"
-          class="w-full md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center bg-contact">
-        <div class="container flex items-center justify-center mx-auto">
-          <div class="bg-white hover:bg-zinc-400 transition duration-300 shadow-xl rounded-xl p-4 text-center md:p-6 my-8" >
-            <h3 class="text-4xl uppercase">Contact</h3>
-          </div>
-        </div>
-        <div class="max-w-screen-xl mx-auto p-5">
-        </div>
+        id="contact"
+        class="w-full md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center bg-contact"
+      >
+        <TitleSectionHome title="Contact" customClass="" />
+        <ContactForm />
       </section>
 
       <hr />
@@ -240,11 +222,7 @@ useSeoMeta({
 <!--        :id="component.name"-->
 <!--        :class="`w-full md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center ${component.bg_class}`"-->
 <!--      >-->
-<!--        <div v-if="component.title" class="container flex items-center justify-center mx-auto">-->
-<!--          <div class="bg-white hover:bg-zinc-400 transition duration-300 shadow-xl rounded-xl p-4 text-center md:p-6 my-8" >-->
-<!--            <h3 class="text-4xl uppercase">{{ component.title }}</h3>-->
-<!--          </div>-->
-<!--        </div>-->
+<!--      <TitleSectionHome v-if="component.title" :title="component.title" customClass="" />-->
 <!--        <Component :is="getComponent(component.name)" :data="component.data" />-->
 <!--      </section>-->
 
@@ -267,5 +245,9 @@ useSeoMeta({
 
 .bg-gallery {
   background-image: url("/img/zebra.png");
+}
+
+.bg-contact {
+  background-image: url("/img/bkg6_2000.jpg");
 }
 </style>

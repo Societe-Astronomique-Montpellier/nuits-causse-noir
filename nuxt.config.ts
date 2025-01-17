@@ -14,7 +14,7 @@ export default defineNuxtConfig({
     "@nuxtjs/leaflet",
     "@nuxt/icon",
     "@nuxt/scripts",
-    "nuxt-mail",
+    "nuxt-nodemailer",
   ],
   prismic: {
     endpoint: apiEndpoint || repositoryName
@@ -56,19 +56,19 @@ export default defineNuxtConfig({
       },
     },
   },
+  nodemailer: {
+    from: process.env.NUXT_SMTP_USER,
+    host: process.env.NUXT_SMTP_HOST,
+    port: process.env.NUXT_SMTP_PORT,
+    secure: false,
+    auth: {
+      user: process.env.NUXT_SMTP_USER,
+      pass: process.env.NUXT_SMTP_PASSWORD,
+    }
+  },
   runtimeConfig: {
-    mail: {
-      message: {
-        to: process.env.NUXT_RECEIVER_MAIL,
-      },
-      smtp: {
-        host: process.env.NUXT_SMTP_HOST,
-        port: process.env.NUXT_SMTP_PORT,
-        auth: {
-          user: process.env.NUXT_SMTP_USER,
-          pass: process.env.NUXT_SMTP_PASSWORD,
-        }
-      }
+    public: {
+      mailerTo: process.env.NUXT_RECEIVER_MAIL,
     }
   }
 })

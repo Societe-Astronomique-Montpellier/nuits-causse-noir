@@ -22,7 +22,6 @@
     "@vueuse/core": "^12.3.0",
     "@vueuse/motion": "^2.2.6",
     "nuxt": "^3.15.0",
-    "nuxt-mail": "^5.1.1",
     "vue": "latest",
     "vue-router": "latest"
   },
@@ -32,6 +31,8 @@
     "@slicemachine/adapter-nuxt": "^0.3.61",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "nodemailer": "^6.9.16",
+    "nuxt-nodemailer": "^1.1.2",
     "slice-machine-ui": "^2.11.1",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
