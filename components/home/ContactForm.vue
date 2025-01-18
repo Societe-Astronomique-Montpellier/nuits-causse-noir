@@ -1,9 +1,20 @@
 <script setup lang="ts">
+const { $apiFetch } = useNuxtApp();
 import { useForm } from '@formwerk/core';
 const { handleSubmit } = useForm();
 
 import TextField from "@/components/form/TextField.vue";
 import TextAreaField from "~/components/form/TextAreaField.vue";
+
+let displayMsg: Ref<boolean> = ref(false);
+let isSuccess: Ref<boolean> = ref(false);
+let msg: Ref<string> = ref('');
+let isLoadingShow: Ref<boolean> = ref(false);
+let isBtnDisabled: Ref<boolean> = ref(false);
+
+let colorBgd: Ref<string> = ref('');
+let colorBgd2: Ref<string> = ref('');
+
 
 /**
  * todo : export interface
@@ -13,6 +24,8 @@ interface IFormContact {
   email: string;
   message: string
 }
+
+
 const formData: IFormContact = reactive({
   name: "",
   email: "",
@@ -20,26 +33,60 @@ const formData: IFormContact = reactive({
 });
 
 const submitForm = handleSubmit(async (submitedData) => {
+  isLoadingShow.value = true;
+  isBtnDisabled.value = true;
+
   setTimeout(async () => {
-    const response = await $fetch('/api/contact', {
+    const response: any = await $apiFetch('/contact', {
       method: 'POST',
       body: submitedData.toJSON()
     });
 
-    console.log(response);
-  }, 1000);
+    displayMsg.value = true;
+    isSuccess.value = response.success;
+    if (false === response.success) {
+      colorBgd.value = 'bg-red-100';
+      colorBgd2.value = 'bg-red-400';
+      msg.value = response.message;
+    } else if (true === response.success) {
+      msg.value = response.message;
+      colorBgd.value = 'bg-green-100';
+      colorBgd2.value = 'bg-green-400';
+    }
+
+    isBtnDisabled.value = false;
+    isLoadingShow.value = false;
+  }, 200);
 });
 </script>
 
 <template>
   <div class="mx-12 p-16">
-    <form action="#" @submit.prevent="submitForm" novalidate class="bg-zinc-500 rounded px-8 pt-6 pb-8 mb-4">
-      <TextField name="name" label="Votre nom" type="text" required :model-value="formData.name"  class="Field" />
-      <TextField name="email" label="Votre email" type="email" required :model-value="formData.email"  />
-      <TextAreaField name="message" label="Votre message" :model-value="formData.message" />
+    <div class="bg-opacity-75 bg-zinc-500 rounded px-8 pt-6 pb-8 mb-4">
 
-      <button data-ripple-light="true" type="submit" class="py-4 px-12 bg-green-500 text-white rounded-full font-bold text-2xl">Envoyer</button>
-    </form>
+      <div class="text-left py-4 lg:px-4" v-show="displayMsg">
+        <div :class="`p-2 ${colorBgd} items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex`" role="alert">
+          <span :class="`flex rounded-full ${colorBgd2} uppercase px-2 py-1 text-xs font-bold mr-3`">New</span>
+          <span class="font-semibold mr-2 text-left flex-auto text-gray-800">{{  msg }}</span>
+        </div>
+      </div>
+
+      <form action="#" @submit.prevent="submitForm" novalidate class="" v-show="!isSuccess">
+
+        <TextField name="name" label="Votre nom" type="text" required :model-value="formData.name"  class="Field" />
+        <TextField name="email" label="Votre email" type="email" required :model-value="formData.email"  />
+        <TextAreaField name="message" label="Votre message" :model-value="formData.message" />
+
+        <button
+            data-ripple-light="true"
+            type="submit" class="py-4 px-6 bg-green-500 text-white rounded-full font-bold text-2xl"
+            :disabled="isBtnDisabled"
+        >
+          <Icon name="line-md:loading-twotone-loop" v-show="isLoadingShow" size="24" />
+          Envoyer
+        </button>
+      </form>
+    </div>
   </div>
 
 </template>

@@ -1,7 +1,7 @@
 import { apiEndpoint, repositoryName } from "./slicemachine.config.json";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  ssr: false,
+  ssr: true,
   typescript: {
     typeCheck: true,
   },  
@@ -56,19 +56,24 @@ export default defineNuxtConfig({
       },
     },
   },
-  nodemailer: {
-    from: process.env.NUXT_SMTP_USER,
-    host: process.env.NUXT_SMTP_HOST,
-    port: process.env.NUXT_SMTP_PORT,
-    secure: false,
-    auth: {
-      user: process.env.NUXT_SMTP_USER,
-      pass: process.env.NUXT_SMTP_PASSWORD,
-    }
-  },
+  // nodemailer: {
+  //   from: process.env.NUXT_SMTP_USER,
+  //   host: process.env.NUXT_SMTP_HOST,
+  //   port: parseInt(process.env.NUXT_SMTP_PORT || '465', 10),
+  //   secure: true,
+  //   auth: {
+  //     user: process.env.NUXT_SMTP_USER,
+  //     pass: process.env.NUXT_SMTP_PASSWORD,
+  //   }
+  // },
   runtimeConfig: {
+    smtpHost: process.env.NUXT_SMTP_USER,
+    smtpPort: parseInt(process.env.NUXT_SMTP_PORT || '465', 10),
+    smtpUser: process.env.NUXT_SMTP_USER,
+    smtpPwd: process.env.NUXT_SMTP_PASSWORD,
     public: {
       mailerTo: process.env.NUXT_RECEIVER_MAIL,
+      internalApiSecret: process.env.NUXT_INTERNAL_API_SECRET,
     }
   }
 })
