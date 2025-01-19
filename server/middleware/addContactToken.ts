@@ -1,12 +1,11 @@
-export default defineEventHandler((event) => {
+export default defineEventHandler((event): void => {
     const config = useRuntimeConfig();
     const apiSideRoutes = event.path.startsWith('/api');
     if (!apiSideRoutes) {
         return;
     }
 
-    const internalToken = getHeader(event, 'x-internal-token');
-
+    const internalToken: string | undefined = getHeader(event, 'x-internal-token');
     // Reject requests without the token or with an invalid token
     if (internalToken !== config.public.internalApiSecret) {
         throw createError({

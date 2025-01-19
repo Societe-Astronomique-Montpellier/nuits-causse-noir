@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import type {DateField, ImageField, KeyTextField, LinkField} from "@prismicio/client";
 import type {ComputedRef} from "vue";
-import { isFilled } from "@prismicio/helpers";
+import {asLink, isFilled} from "@prismicio/helpers";
 
 const { t } = useI18n();
+const { isMobile } = useDevice();
 const AuroraBackground = defineAsyncComponent(() => import('~/components/AuroraBackground.vue'))
 
 const props = defineProps<{
@@ -21,38 +22,45 @@ const rangeDates: ComputedRef<string> = computed<string>(() => `Du ${useFormatIn
 </script>
 
 <template>
-  <div class="flex h-screen w-full ">
+  <div class="flex h-screen w-full">
     <div class="flex-1 bg-hero bg-cover bg-center bg-no-repeat absolute inset-0 flex flex-col justify-center items-center">
       <prismic-image
           v-if="isFilled.image(logo)"
           :field="logo"
-          class="w-80 relative flex flex-col items-center justify-center"
+          :class="isMobile ? `w-500` : `w-100`"
+          class="relative flex flex-col items-center justify-center"
           :alt="titleHero"
       ></prismic-image>
-      <h2 class="py-8 text-base font-extralight md:text-4xl text-neutral-200">
+      <h2 class="md:py-16 sm:py-2 text-base md:font-extralight text-neutral-200"
+      :class="isMobile ? `text-9xl` : `text-4xl`">
         {{ rangeDates }}
       </h2>
-      <div class="py-8 text-base text-center font-extralight md:text-3xl text-neutral-200">
+      <div class="md:py-8 md:px-64 sm:py-2 sm:px-8 text-base text-center font-extralight md:text-3xl sm:text-8xl text-neutral-200">
         {{ subtitle }}
       </div>
-      <div class="inline-flex gap-24 my-16 md:flex-row" v-if="isOpen">
+      <div
+          :class="isMobile ? `gap-10 my-4` : `inline-flex flex-row gap-24 my-16`"
+          class=""
+          v-if="isOpen"
+      >
         <button
-            class="w-fit py-4 px-12 bg-zinc-800 border-solid border-2 border-green-500 text-white rounded-full font-bold text-2xl"
-            role="link"
+          class="py-4 px-12 bg-zinc-800 border-solid border-2 border-green-500 text-white rounded-2xl font-bold text-2xl"
+          role="link"
         >
           <a href="#tarifs">Tarifs & programme</a>
         </button>
 
-        <prismic-link
-          :field="subscribeLink"
-          role="button"
-          class="w-fit py-4 px-12 bg-green-500 text-white rounded-full font-bold text-2xl"
-        ></prismic-link>
+<!--        <prismic-link-->
+<!--          v-if="asLink(subscribeLink)"-->
+<!--          :field="subscribeLink"-->
+<!--          role="button"-->
+<!--          class="py-4 px-12 bg-green-500 text-white rounded-2xl font-bold text-2xl"-->
+<!--        ></prismic-link>-->
       </div>
       <div v-else-if="!isOpen">
         <button
-            class="w-fit py-4 px-12 bg-zinc-800 border-solid border-2 border-green-500 text-white rounded-full font-bold text-2xl"
-            role="link"
+          class="w-fit py-4 px-12 bg-zinc-800 border-solid border-2 border-green-500 text-white rounded-2xl font-bold text-2xl"
+          role="link"
         >
           Ouverture prochainement de la billeterie
         </button>

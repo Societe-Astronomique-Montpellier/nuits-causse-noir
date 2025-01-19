@@ -61,7 +61,7 @@ const submitForm = handleSubmit(async (submitedData) => {
 </script>
 
 <template>
-  <div class="mx-12 p-16">
+  <div class="md:mx-12 md:p-16 sm:mx-2 sm:p-4">
     <div class="bg-opacity-75 bg-zinc-500 rounded px-8 pt-6 pb-8 mb-4">
 
       <div class="text-left py-4 lg:px-4" v-show="displayMsg">
@@ -79,7 +79,7 @@ const submitForm = handleSubmit(async (submitedData) => {
 
         <button
             data-ripple-light="true"
-            type="submit" class="py-4 px-6 bg-green-500 text-white rounded-full font-bold text-2xl"
+            type="submit" class="md:py-4 md:px-6 sm:py-2 sm:px-3 bg-green-500 text-white rounded-2xl font-bold md:text-2xl sm:text-2xl"
             :disabled="isBtnDisabled"
         >
           <Icon name="line-md:loading-twotone-loop" v-show="isLoadingShow" size="24" />

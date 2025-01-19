@@ -15,6 +15,7 @@ export default defineNuxtConfig({
     "@nuxt/icon",
     "@nuxt/scripts",
     "nuxt-nodemailer",
+    "@nuxtjs/device"
   ],
   prismic: {
     endpoint: apiEndpoint || repositoryName

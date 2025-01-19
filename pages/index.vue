@@ -164,20 +164,20 @@ useSeoMeta({
       :date-start="data?.homepage.data.date_start"
       :date-end="data?.homepage.data.date_end"
       :logo="data?.homepage.data.logo"
-      :subscribe-link="data.homepage.data.subscribe_link"
+      :subscribe-link="data?.homepage.data.subscribe_link"
     />
 
     <div v-if="true === data.homepage.data.enable_site">
       <section
         id="description"
-        class="w-full md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center"
+        class="w-full md:py-14 sm:py-8 bg-cover bg-center border-t bg-fixed bg-no-repeat justify-center"
       >
         <Description :data="{text: description, image: optimizedImage}" />
       </section>
 
       <section
         id="tarifs"
-        class="w-full md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center bg-rates "
+        class="w-full md:py-14 sm:py-8 bg-cover bg-center border-t bg-fixed bg-no-repeat justify-center bg-rates "
       >
         <TitleSectionHome title="Tarifs" customClass="" />
         <Rates :data="{gridRatesNumber: gridRatesNumber, listRates: data.rates}" />
@@ -185,7 +185,7 @@ useSeoMeta({
 
       <section
           id="programme"
-          class="w-full md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center bg-program"
+          class="w-full md:py-14 sm:py-8 bg-cover bg-center border-t bg-fixed bg-no-repeat justify-center bg-program"
       >
         <TitleSectionHome title="Programme" customClass="" />
         <Program :data="{events: groupedByDay}" />
@@ -193,7 +193,7 @@ useSeoMeta({
 
       <section
           id="lieu"
-          class="w-full md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center bg-place"
+          class="w-full md:py-14 sm:py-8 bg-cover bg-center border-t bg-fixed bg-no-repeat justify-center bg-place"
       >
         <TitleSectionHome title="Le lieu" customClass="" />
         <Place :data="{title: data.homepage.data.place_name, coordinate: pradinesCoordinates}" />
@@ -202,15 +202,15 @@ useSeoMeta({
 
       <section
         id="galery"
-        class="w-full md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center bg-gallery"
+        class="w-full md:py-14 sm:py-8 bg-cover bg-center border-t bg-fixed bg-no-repeat justify-center bg-gallery"
       >
         <TitleSectionHome title="Galerie" customClass="" />
-        <Gallery :data="{ images: images, youtubeVideoId: youtubeVideoId}" />
+        <Gallery :data="{ images: images, youtubeVideoId: youtubeVideoId }" />
       </section>
 
       <section
         id="contact"
-        class="w-full md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center bg-contact"
+        class="w-full md:py-14 sm:py-8 bg-cover bg-center border-t bg-fixed bg-no-repeat justify-center bg-contact"
       >
         <TitleSectionHome title="Contact" customClass="" />
         <ContactForm />
@@ -220,7 +220,7 @@ useSeoMeta({
 <!--      <section-->
 <!--        v-for="component in components" v-bind:key="component.name"-->
 <!--        :id="component.name"-->
-<!--        :class="`w-full md:py-14 py-14 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center ${component.bg_class}`"-->
+<!--        :class="`w-full md:py-14 sm:py-8 md:bg-cover md:bg-center bg-contain border-t bg-fixed bg-no-repeat bg-center justify-center ${component.bg_class}`"-->
 <!--      >-->
 <!--      <TitleSectionHome v-if="component.title" :title="component.title" customClass="" />-->
 <!--        <Component :is="getComponent(component.name)" :data="component.data" />-->

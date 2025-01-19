@@ -22,9 +22,9 @@ export default defineEventHandler(async (event): Promise<ResponseData> => {
         message
     } = body;
     if (!name || !email || !message) {
-        return { success: false, message: 'All fields are required.' };
+        return { success: false, message: 'Tous les champs sont obligatoire.' };
     }
-    
+
     try {
         const transporter = nodemailer.createTransport({
             host: config.smtpHost,
@@ -35,12 +35,27 @@ export default defineEventHandler(async (event): Promise<ResponseData> => {
                 pass: config.smtpPwd,
             },
         });
+
+        transporter.verify((err) => {
+            if (err) {
+                throw new Error(err.message)
+            }
+        })
+
         const result = await transporter.sendMail({
+            from: `Societe-Astronomique-Montpellier <${config.smtpUser}>`,
             to: config.public.mailerTo,
             subject: `[NCN] Message de ${name} - ${email}`,
             text: message,
+            html: `
+                <div>
+                    <div>
+                        <img class="background-color: #27272a;" src="https://demo.nuits-causse-noir.fr/img/LOGO_NCN_NOIR.png" alt="Nuits du causse noir" />
+                    </div>     
+                    <div>${message}</div>
+                </div>`
         });
-        
+
         return { success: true, message: 'Le message a bien été envoyé, nous vous répondrons au plus vite.', result};
     } catch (error: any) {
         return { success: false, message: error.message };

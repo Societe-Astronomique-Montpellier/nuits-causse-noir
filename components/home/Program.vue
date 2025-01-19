@@ -5,11 +5,15 @@ const props = defineProps<{
 const { data } = toRefs(props);
 
 const ProgramDayCard = defineAsyncComponent(() => import('@/components/cards/ProgramDayCard.vue'));
+const { isMobile } = useDevice();
 </script>
 
 <template>
-  <div class="max-w-screen-xl mx-auto p-5">
-    <div class="grid grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-8">
+  <div
+    :class="isMobile ? `p-2` : `p-5`"
+    class="max-w-screen-xl mx-auto"
+  >
+    <div class="grid md:grid-cols-2 sm:grid-cols-1 md:gap-8 sm:gap-4">
       <ProgramDayCard v-for="(events, day) in data.events" :day="day" :events="events"  />
     </div>
   </div>

@@ -11,7 +11,7 @@ const stateChange = (event: any) =>  isPlaying.value = event.data === 1;
 </script>
 
 <template>
-  <div>
+  <div v-if="youtubeId">
     <div class="flex items-center justify-center p-5">
       <ScriptYouTubePlayer ref="video" :video-id="youtubeId" @ready="isLoaded = true" @state-change="stateChange">
         <template #awaitingLoad>
@@ -22,10 +22,10 @@ const stateChange = (event: any) =>  isPlaying.value = event.data === 1;
       </ScriptYouTubePlayer>
     </div>
     <div class="text-center">
-      <UAlert v-if="!isLoaded" class="mb-5" size="sm" color="blue" variant="soft" title="Click to load" description="Clicking the video will load the Youtube iframe and start the video." />
-      <UButton v-if="isLoaded && !isPlaying" @click="play">
+      <!-- alert v-if="!isLoaded" class="mb-5" size="sm" color="blue" variant="soft" title="Click to load" description="Clicking the video will load the Youtube iframe and start the video." /-->
+      <button v-if="isLoaded && !isPlaying" @click="play">
         Play Video
-      </UButton>
+      </button>
     </div>
   </div>
 </template>
