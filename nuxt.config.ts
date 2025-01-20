@@ -57,18 +57,8 @@ export default defineNuxtConfig({
       },
     },
   },
-  // nodemailer: {
-  //   from: process.env.NUXT_SMTP_USER,
-  //   host: process.env.NUXT_SMTP_HOST,
-  //   port: parseInt(process.env.NUXT_SMTP_PORT || '465', 10),
-  //   secure: true,
-  //   auth: {
-  //     user: process.env.NUXT_SMTP_USER,
-  //     pass: process.env.NUXT_SMTP_PASSWORD,
-  //   }
-  // },
   runtimeConfig: {
-    smtpHost: process.env.NUXT_SMTP_USER,
+    smtpHost: process.env.NUXT_SMTP_HOST,
     smtpPort: parseInt(process.env.NUXT_SMTP_PORT || '465', 10),
     smtpUser: process.env.NUXT_SMTP_USER,
     smtpPwd: process.env.NUXT_SMTP_PASSWORD,

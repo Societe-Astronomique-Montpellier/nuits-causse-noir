@@ -26,11 +26,11 @@ const classCssSubTitle = computed<string>(() => (isMobile ? `py-2 px-2 text-2xl 
 
 <template>
   <div class="flex h-screen w-full">
-    <div class="bg-hero bg-cover bg-center bg-no-repeat absolute inset-0 flex flex-col justify-center">
+    <div class="bg-hero bg-cover bg-center bg-no-repeat absolute inset-0 flex flex-col items-center">
       <prismic-image
           v-if="isFilled.image(logo)"
           :field="logo"
-          :class="isMobile ? `w-500` : `w-100`"
+          :class="isMobile ? `w-500` : `w-50 flex`"
           class="relative items-center justify-center"
           :alt="titleHero"
       ></prismic-image>

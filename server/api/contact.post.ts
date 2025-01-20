@@ -43,7 +43,7 @@ export default defineEventHandler(async (event): Promise<ResponseData> => {
         })
 
         const result = await transporter.sendMail({
-            from: `Societe-Astronomique-Montpellier <${config.smtpUser}>`,
+            from: `"Societe-Astronomique-Montpellier" <${config.smtpUser}>`,
             to: config.public.mailerTo,
             replyTo: email,
             subject: `[NCN] Message de ${name} - ${email}`,
