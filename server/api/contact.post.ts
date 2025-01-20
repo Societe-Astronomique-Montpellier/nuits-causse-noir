@@ -45,14 +45,15 @@ export default defineEventHandler(async (event): Promise<ResponseData> => {
         const result = await transporter.sendMail({
             from: `Societe-Astronomique-Montpellier <${config.smtpUser}>`,
             to: config.public.mailerTo,
+            replyTo: email,
             subject: `[NCN] Message de ${name} - ${email}`,
             text: message,
             html: `
                 <div>
-                    <div>
-                        <img class="background-color: #27272a;" src="https://demo.nuits-causse-noir.fr/img/LOGO_NCN_NOIR.png" alt="Nuits du causse noir" />
-                    </div>     
                     <div>${message}</div>
+                    <div>
+                        <img class="background-color: #27272a;" width="150" src="https://demo.nuits-causse-noir.fr/img/LOGO_NCN_NOIR.png" alt="Nuits du causse noir" />
+                    </div>     
                 </div>`
         });
 

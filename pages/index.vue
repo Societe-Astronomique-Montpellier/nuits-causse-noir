@@ -155,8 +155,7 @@ useSeoMeta({
 </script>
 
 <template>
-
-  <div v-if="data" class="scroll-smooth">
+  <div class="" v-if="data">
     <Hero
       :isOpen="data.homepage.data.enable_site"
       :title-hero="data?.homepage.data.title"
