@@ -338,7 +338,7 @@ interface HomepageDocumentData {
    * - **Tab**: SEO & Metadata
    * - **Documentation**: https://prismic.io/docs/field#image
    */
-  meta_image: prismic.ImageField<never>;
+  meta_image: prismic.ImageField<"thumbs">;
 }
 
 /**

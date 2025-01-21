@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type {AllDocumentTypes, EventDocument, HomepageDocument, RateDocument} from "~/prismicio-types";
-import {isFilled, asLink} from "@prismicio/helpers";
+import {isFilled, asLink, asImageSrc} from "@prismicio/helpers";
 import {type ImageField, type LinkField, type RichTextField} from "@prismicio/client";
 import type {ComputedRef} from "vue";
 import {LinkType} from "@prismicio/types";
@@ -10,6 +10,7 @@ import {LinkType} from "@prismicio/types";
  */
 const { locale } = useI18n();
 const prismic = usePrismic();
+const url: URL = useRequestURL();
 const { getComponent } = useDynamicComponent();
 
 definePageMeta({
@@ -146,11 +147,14 @@ const components: ComputedRef<IComponent[]> = computed<IComponent[]>(() => [
 /**
  * SEO
  */
-const metaTitle: ComputedRef<string | null> = computed<string | null>(() => isFilled.keyText(data.value?.homepage.data.meta_title) ? `${data.value?.homepage.data.meta_title}`: `${data.value?.homepage.data.title}`);
-const metaDesc: ComputedRef<string | null> = computed<string | null>(() => isFilled.keyText(data.value?.homepage.data.meta_description) ? `${data.value?.homepage.data.meta_description}`: `${data.value?.homepage.data.subtitle}`);
-useSeoMeta({
-  title: (): string | null => unref(metaTitle),
-  description: (): string | null  => unref(metaDesc)
+const metaTitle: ComputedRef<string> = computed<string>(() => isFilled.keyText(data.value?.homepage.data.meta_title) ? `${data.value?.homepage.data.meta_title}`: `${data.value?.homepage.data.title}`);
+const metaDesc: ComputedRef<string> = computed<string>(() => isFilled.keyText(data.value?.homepage.data.meta_description) ? `${data.value?.homepage.data.meta_description}`: `${data.value?.homepage.data.subtitle}`);
+const metaImg: ComputedRef<ImageField<never> | undefined> = computed<ImageField<never> | undefined>(() => isFilled.image(data.value?.homepage.data.meta_image) ? data.value?.homepage.data.meta_image.thumbs : data.value?.homepage.data.logo)
+
+useSeo({
+  title: metaTitle,
+  description: metaDesc,
+  image: asImageSrc(metaImg.value)
 });
 </script>
 
