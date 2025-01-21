@@ -6,6 +6,7 @@ import type {TimestampField} from "@prismicio/types";
 const props = defineProps<{ day: string | number, events: EventDocument[] }>();
 const { day, events } = toRefs(props);
 const { isMobile } = useDevice();
+const { locale } = useI18n();
 type EventType = "Activitée" | "Conférence" | "Atelier" | "Nuit d'observation";
 interface ColorConfig {
   background: string;
@@ -62,7 +63,7 @@ const getTime = (dateEvent: TimestampField): string => {
     class="bg-card-zebred rounded-lg shadow-lg"
   >
     <div class="border-b-2 text-zinc-400 font-bold text-2xl border-zinc-500 py-2 dark:border-white/10 items-end">
-      {{ useFormatIntoFrenchDate(day as DateField, "short") }}
+      {{ useFormatIntoFrenchDate(day as DateField, "short", locale) }}
     </div>
     <div class="">
       <div

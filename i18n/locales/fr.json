@@ -1,0 +1,54 @@
+{
+  "layout": {
+    "euro": "€",
+    "photo_copyright": "Photo ©",
+    "copyright": "Société Astronomique de Montpellier - Tout droit réservé",
+    "backToTop": "Revenir en haut"
+  },
+  "homepage": {
+    "blocks": {
+      "hero": {
+        "date": "Du {dateStart} au {dateEnd}",
+        "label_tarif": "Tarifs",
+        "label_programme": "Programme",
+        "site_closed": "Ouverture de la billeterie prochainement"
+      },
+      "description": {
+      },
+      "rates": {
+        "title": "Tarifs",
+        "count_days": "Jours",
+        "count_nights": "Nuits"
+      },
+      "program": {
+        "title": "Programme"
+      },
+      "place": {
+        "title": "Le lieu",
+        "website": "Site internet",
+        "website_title": "Site internet du domaine des Pradines"
+      },
+      "gallery": {
+        "title": "Galerie"
+      },
+      "contact": {
+        "title": "Contact",
+        "form": {
+          "name": {
+            "label": "Nom",
+            "placeholder": "Veuillez saisir vos noms et prénom"
+          },
+          "email": {
+            "label": "Adresse e-mail",
+            "placeholder": "Votre saisir votre adresse email"
+          },
+          "message": {
+            "label": "Votre message",
+            "placeholder": "Veuillez saisir votre message"
+          },
+          "submit": "Envoyer"
+        }
+      }
+    }
+  }
+}

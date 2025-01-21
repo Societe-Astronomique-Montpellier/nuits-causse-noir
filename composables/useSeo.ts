@@ -21,7 +21,7 @@ export const useSeo = (item: IItem): void => {
       lang: (): string => locale.value,
     },
     link: [
-      { rel: "icon", type: "image/png", href: "/favicon.ico" },
+      { rel: "icon", type: "image/png", href: "/favicon.png" },
       { rel: "preconnect", href: "https://fonts.gstatic.com" },
     ],
   });

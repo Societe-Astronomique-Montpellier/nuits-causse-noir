@@ -7,7 +7,7 @@ const year: Ref<number> = ref(new Date().getFullYear());
     <div
         class="bg-black/5 p-4 text-center text-surface text-white dark:text-neutral-300"
     >
-      © {{ year }}&nbsp;-&nbsp;Société Astronomique de Montpellier&nbsp;-&nbsp;Tout droit réservé
+      © {{ year }}&nbsp;-&nbsp;{{ $t('layout.copyright') }}
     </div>
   </footer>
 </template>

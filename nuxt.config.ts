@@ -30,9 +30,16 @@ export default defineNuxtConfig({
     "@fontsource/raleway/200-italic.css",
   ],
   i18n: {
+    strategy: 'prefix_except_default',
+    defaultLocale: 'fr-fr',
     detectBrowserLanguage: false,
-    locales: ["fr-fr"],
-    defaultLocale: "fr-fr",
+    locales: [
+      { code: 'fr-fr', name: 'Français', file: 'fr.json' },
+      { code: 'en-gb', name: 'English', file: 'en.json' }
+    ],
+    lazy: true,
+    langDir: "locales/",
+    vueI18n: "./i18n/i18n.config.ts"
   },
   app: {
     head: {

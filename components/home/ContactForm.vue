@@ -3,6 +3,7 @@ const { $apiFetch } = useNuxtApp();
 import { useForm } from '@formwerk/core';
 import { z } from 'zod';
 const { isMobile } = useDevice();
+const { t } = useI18n();
 
 const { handleSubmit } = useForm({
   schema: z.object({
@@ -82,9 +83,30 @@ const submitForm = handleSubmit(async (submitedData) => {
 
       <form action="#" @submit.prevent="submitForm" v-show="!isSuccess">
 
-        <TextField name="name" label="Votre nom" type="text" required :model-value="formData.name" />
-        <TextField name="email" label="Votre email" type="email" required :model-value="formData.email"  />
-        <TextAreaField name="message" label="Votre message" :model-value="formData.message" />
+        <TextField
+          name="name"
+          :label="t('homepage.blocks.contact.form.name.label')"
+          _placeholder="t('homepage.blocks.contact.form.name.placeholder')"
+          type="text"
+          required
+          :model-value="formData.name"
+        />
+
+        <TextField
+          name="email"
+          :label="t('homepage.blocks.contact.form.email.label')"
+          _placeholder="t('homepage.blocks.contact.form.email.placeholder')"
+          type="email"
+          required
+          :model-value="formData.email"
+        />
+
+        <TextAreaField
+          name="message"
+          :label="t('homepage.blocks.contact.form.message.label')"
+          _placeholder="t('homepage.blocks.contact.form.message.placeholder')"
+          :model-value="formData.message"
+        />
 
         <button
           data-ripple-light="true"
@@ -93,7 +115,7 @@ const submitForm = handleSubmit(async (submitedData) => {
           :disabled="isBtnDisabled"
         >
           <Icon name="line-md:loading-twotone-loop" v-show="isLoadingShow" size="24" />
-          Envoyer
+          {{ $t('homepage.blocks.contact.form.submit') }}
         </button>
       </form>
     </div>

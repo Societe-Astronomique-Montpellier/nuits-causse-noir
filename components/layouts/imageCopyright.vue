@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { ImageField } from "@prismicio/client";
+const { t } = useI18n();
 
 export interface Props {
   image: ImageField<never> | undefined;
@@ -23,7 +24,7 @@ const { image } = toRefs(props);
     >
       <span v-if="image.alt">{{ image.alt }}&nbsp;</span>
       <span v-if="image.copyright"
-        >&ndash;&nbsp;Photo &copy; {{ image.copyright }}</span
+        >&ndash;&nbsp;{{ $t("layout.copyright") }} {{ image.copyright }}</span
       >
     </figcaption>
   </figure>

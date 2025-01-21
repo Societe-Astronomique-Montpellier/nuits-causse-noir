@@ -3,7 +3,7 @@ import type {DateField, ImageField, KeyTextField, LinkField} from "@prismicio/cl
 import type {ComputedRef} from "vue";
 import {asLink, isFilled} from "@prismicio/helpers";
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 const { isMobile } = useDevice();
 const AuroraBackground = defineAsyncComponent(() => import('~/components/AuroraBackground.vue'))
 
@@ -18,7 +18,10 @@ const props = defineProps<{
 }>();
 const { titleHero, subtitle, dateStart, dateEnd, subscribeLink } = toRefs(props);
 
-const rangeDates: ComputedRef<string> = computed<string>(() => `Du ${useFormatIntoFrenchDate(dateStart.value, "short")} au ${useFormatIntoFrenchDate(dateEnd.value, "short")}`);
+const rangeDates: ComputedRef<string> = computed<string>(() => t('homepage.blocks.hero.date', {
+  dateStart: useFormatIntoFrenchDate(dateStart.value, "short", locale.value),
+  dateEnd: useFormatIntoFrenchDate(dateEnd.value, "short", locale.value)
+}));
 
 const classCssTitle = computed<string>(() => (isMobile ? `text-4xl py-4 text-center ` : `py-16 text-6xl `) + ` font-extralight text-neutral-200`);
 const classCssSubTitle = computed<string>(() => (isMobile ? `py-2 px-2 text-2xl text-justify ` : `px-64 text-3xl text-center `) + ` font-extralight text-neutral-200`);
@@ -46,7 +49,7 @@ const classCssSubTitle = computed<string>(() => (isMobile ? `py-2 px-2 text-2xl 
           role="link"
         >
           <Icon name="material-symbols-light:euro" size="32" class="text-white" />
-          <span><a href="#tarifs">Tarifs</a></span>
+          <span><a href="#tarifs" :title="t('homepage.blocks.hero.label_tarif')">{{ $t('homepage.blocks.hero.label_tarif') }}</a></span>
         </button>
 
         <button
@@ -54,7 +57,7 @@ const classCssSubTitle = computed<string>(() => (isMobile ? `py-2 px-2 text-2xl 
             role="link"
         >
           <Icon name="mdi-light:calendar" size="32" class="text-white" />
-          <span><a href="#programme">Programme</a></span>
+          <span><a href="#programme" :title="t('homepage.blocks.hero.label_programme')">{{ $t('homepage.blocks.hero.label_programme') }}</a></span>
         </button>
 
         <prismic-link
@@ -62,6 +65,7 @@ const classCssSubTitle = computed<string>(() => (isMobile ? `py-2 px-2 text-2xl 
           :field="subscribeLink"
           role="button"
           class="py-4 px-12 bg-green-500 text-white rounded-2xl font-bold text-2xl"
+          :title="subscribeLink.text"
         ></prismic-link>
 
 <!--        <div id="section05" class="demo">-->
@@ -73,7 +77,7 @@ const classCssSubTitle = computed<string>(() => (isMobile ? `py-2 px-2 text-2xl 
           class="w-fit py-4 px-12 bg-zinc-800 border-solid border-2 border-green-500 text-white rounded-2xl font-bold text-2xl"
           role="link"
         >
-          Ouverture prochainement de la billeterie
+          {{ $t('homepage.blocks.hero.site_closed') }}
         </button>
       </div>
 

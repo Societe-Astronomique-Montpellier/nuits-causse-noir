@@ -1,8 +1,12 @@
 <script setup lang="ts">
+const { t } = useI18n();
 const props = defineProps<{
   data: any
 }>();
 const { data } = toRefs(props);
+
+
+const urlPradines: Ref<string> = ref('https://www.domaine-de-pradines.com/');
 </script>
 
 <template>
@@ -27,8 +31,18 @@ const { data } = toRefs(props);
             <LMarker :lat-lng="data.coordinate" />
           </LMap></div>
 
-          <div class="mt-4">
-            <button class="bg-green-500 text-white py-2 px-12 rounded-full font-bold hover:bg-zinc-800">Site internet</button>
+          <div class="mt-4 flex-inline items-center justify-center">
+            <button
+              class="bg-green-500 text-white py-2 px-12 rounded-full font-bold hover:bg-zinc-800"
+            >
+              <NuxtLink
+                :to="urlPradines"
+                :title="t('homepage.blocks.place.website_title')"
+                target="_blank"
+              >
+                {{ $t('homepage.blocks.place.website') }}
+              </NuxtLink>
+            </button>
           </div>
         </div>
       </div>

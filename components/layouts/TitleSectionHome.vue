@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const props = defineProps<{ title: string, customClass: string | undefined | null}>();
+const props = defineProps<{ title: string | undefined, customClass: string | undefined | null}>();
 const { title } = toRefs(props)
 </script>
 

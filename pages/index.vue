@@ -8,10 +8,9 @@ import {LinkType} from "@prismicio/types";
 /**
  * Composables
  */
-const { locale } = useI18n();
+const { locale, t } = useI18n();
 const prismic = usePrismic();
-const url: URL = useRequestURL();
-const { getComponent } = useDynamicComponent();
+// const { getComponent } = useDynamicComponent();
 
 definePageMeta({
   layout: "home",
@@ -51,7 +50,7 @@ const prismicFetchData = async() => {
 
   return { homepage, rates, events }
 };
-const { data, error } = useAsyncData('data', prismicFetchData);
+const { data, error } = await useAsyncData('data', prismicFetchData);
 
 const Hero = defineAsyncComponent(() => import('@/components/home/Hero.vue'))
 const TitleSectionHome = defineAsyncComponent(() => import('@/components/layouts/TitleSectionHome.vue'));
@@ -101,7 +100,7 @@ const youtubeVideoId: ComputedRef<string | null> = computed<string | null>(() =>
 });
 
 interface IComponent {
-  name: string,
+  name: string | undefined,
   title: string | undefined,
   bg_class: string | undefined,
   data: any | undefined
@@ -115,35 +114,36 @@ const components: ComputedRef<IComponent[]> = computed<IComponent[]>(() => [
   },
   {
     name: "rates",
-    title: "Tarifs",
+    title: t('homepage.blocks.rates.title'),
     bg_class: "bg-rates",
     data: {gridRatesNumber: gridRatesNumber, listRates: data.value?.rates}
   },
   {
     name: "program",
-    title: "Programme",
+    title: t('homepage.blocks.program.title'),
     bg_class: "bg-program",
     data: {events: groupedByDay}
   },
   {
-     name: "place",
-     title: "Le lieu",
-     bg_class: "bg-place",
-     data: {title: data.value?.homepage.data.place_name, coordinate: pradinesCoordinates}
+    name: "place",
+    title: t('homepage.blocks.place.title'),
+    bg_class: "bg-place",
+    data: {title: data.value?.homepage.data.place_name, coordinate: pradinesCoordinates}
    },
    {
-     name: "gallery",
-     title: "Galerie",
-     bg_class: "bg-gallery",
-     data: { images: images, youtubeVideoId: youtubeVideoId}
+    name: "gallery",
+    title: t('homepage.blocks.gallery.title'),
+    bg_class: "bg-gallery",
+    data: { images: images, youtubeVideoId: youtubeVideoId}
    },
-   // {
-   //   name: "contact",
-   //   title: "Contact",
-   //   bg_class: "bg-contact",
-   //   data: {}
-   // }
+   {
+     name: "contact",
+     title: t('homepage.blocks.contact.title'),
+     bg_class: "bg-contact",
+     data: {}
+   }
 ]);
+
 /**
  * SEO
  */
@@ -182,23 +182,23 @@ useSeo({
         id="tarifs"
         class="w-full md:py-14 sm:py-8 bg-cover bg-center border-t bg-fixed bg-no-repeat justify-center bg-rates "
       >
-        <TitleSectionHome title="Tarifs" customClass="" />
+        <TitleSectionHome :title="components.filter(item => item.name === 'rates')[0].title" customClass="" />
         <Rates :data="{gridRatesNumber: gridRatesNumber, listRates: data.rates}" />
       </section>
 
       <section
-          id="programme"
-          class="w-full md:py-14 sm:py-8 bg-cover bg-center border-t bg-fixed bg-no-repeat justify-center bg-program"
+        id="programme"
+        class="w-full md:py-14 sm:py-8 bg-cover bg-center border-t bg-fixed bg-no-repeat justify-center bg-program"
       >
-        <TitleSectionHome title="Programme" customClass="" />
+        <TitleSectionHome :title="components.filter(item => item.name === 'program')[0].title" customClass="" />
         <Program :data="{events: groupedByDay}" />
       </section>
 
       <section
-          id="lieu"
-          class="w-full md:py-14 sm:py-8 bg-cover bg-center border-t bg-fixed bg-no-repeat justify-center bg-place"
+        id="lieu"
+        class="w-full md:py-14 sm:py-8 bg-cover bg-center border-t bg-fixed bg-no-repeat justify-center bg-place"
       >
-        <TitleSectionHome title="Le lieu" customClass="" />
+        <TitleSectionHome :title="components.filter(item => item.name === 'place')[0].title" customClass="" />
         <Place :data="{title: data.homepage.data.place_name, coordinate: pradinesCoordinates}" />
       </section>
 
@@ -207,7 +207,7 @@ useSeo({
         id="galery"
         class="w-full md:py-14 sm:py-8 bg-cover bg-center border-t bg-fixed bg-no-repeat justify-center bg-gallery"
       >
-        <TitleSectionHome title="Galerie" customClass="" />
+        <TitleSectionHome :title="components.filter(item => item.name === 'gallery')[0].title" customClass="" />
         <Gallery :data="{ images: images, youtubeVideoId: youtubeVideoId }" />
       </section>
 
@@ -215,7 +215,7 @@ useSeo({
         id="contact"
         class="w-full md:py-14 sm:py-8 bg-cover bg-center border-t bg-fixed bg-no-repeat justify-center bg-contact"
       >
-        <TitleSectionHome title="Contact" customClass="" />
+        <TitleSectionHome :title="components.filter(item => item.name === 'contact')[0].title" customClass="" />
         <ContactForm />
       </section>
 

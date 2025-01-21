@@ -4,10 +4,13 @@ import type { DateField, TimestampField } from "@prismicio/types";
 export const useFormatIntoFrenchDate = (
   date: DateField | TimestampField | undefined,
   format: string | null,
+  locale: string | null
 ): string => {
   const prismicDate: Date | null = prismic.asDate(date);
+
   let paramsDate = {};
-  let lang = "fr-FR";
+  let lang = locale ?? "fr-fr";
+
   format = format ?? "short";
   switch (format) {
     case "short": {
