@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type {DateField, ImageField, KeyTextField, LinkField} from "@prismicio/client";
 import type {ComputedRef} from "vue";
-import {asLink, isFilled} from "@prismicio/helpers";
+import { isFilled } from "@prismicio/helpers";
 
 const { t, locale } = useI18n();
 const { isMobile } = useDevice();
@@ -14,74 +14,33 @@ const props = defineProps<{
   dateStart: DateField | undefined,
   dateEnd: DateField | undefined,
   logo: ImageField<never>
-  subscribeLink: LinkField
 }>();
-const { titleHero, subtitle, dateStart, dateEnd, subscribeLink } = toRefs(props);
+const { titleHero, subtitle, dateStart, dateEnd } = toRefs(props);
 
 const rangeDates: ComputedRef<string> = computed<string>(() => t('homepage.blocks.hero.date', {
   dateStart: useFormatIntoFrenchDate(dateStart.value, "short", locale.value),
   dateEnd: useFormatIntoFrenchDate(dateEnd.value, "short", locale.value)
 }));
 
-const classCssTitle = computed<string>(() => (isMobile ? `text-4xl py-4 text-center ` : `py-16 text-6xl `) + ` font-extralight text-neutral-200`);
-const classCssSubTitle = computed<string>(() => (isMobile ? `py-2 px-2 text-2xl text-justify ` : `px-64 text-3xl text-center `) + ` font-extralight text-neutral-200`);
+const classCssTitle = computed<string>(() => (isMobile ? `text-4xl py-4 text-center ` : `py-16 text-6xl text-center `) + ` mx-auto font-extralight text-neutral-200`);
+const classCssSubTitle = computed<string>(() => (isMobile ? `py-2 px-2 text-2xl text-justify ` : `px-64 text-3xl text-center `) + ` mx-auto font-extralight text-neutral-200`);
 </script>
 
 <template>
-  <div class="flex h-screen w-full">
-    <div class="bg-hero bg-cover bg-center bg-no-repeat absolute inset-0 flex flex-col items-center">
+  <div class="flex flex-col h-screen">
+    <div class="bg-hero bg-cover bg-center bg-no-repeat absolute inset-0 mx-auto py-24">
       <prismic-image
           v-if="isFilled.image(logo)"
           :field="logo"
-          :class="isMobile ? `w-500` : `w-50 flex`"
-          class="relative items-center justify-center"
+          :class="isMobile ? `w-500` : `mx-auto w-large`"
           :alt="titleHero"
-      ></prismic-image>
-      <h2 :class="classCssTitle">{{ rangeDates }}</h2>
+          fetchpriority="high"
+      />
+      <h2 v-if="isOpen" :class="classCssTitle">{{ rangeDates }}</h2>
+
       <div v-if="!isMobile" :class="classCssSubTitle">{{ subtitle }}</div>
-      <div
-          :class="isMobile ? `flex flex-col space-y-4 mx-2` : `inline-flex flex-row space-x-16 my-16`"
-          class=""
-          v-if="isOpen"
-      >
-        <button
-          class="py-4 px-12 bg-zinc-800 border-solid border-2 border-green-500 text-white rounded-2xl font-bold text-2xl inline-flex items-center"
-          role="link"
-        >
-          <Icon name="material-symbols-light:euro" size="32" class="text-white" />
-          <span><a href="#tarifs" :title="t('homepage.blocks.hero.label_tarif')">{{ $t('homepage.blocks.hero.label_tarif') }}</a></span>
-        </button>
 
-        <button
-            class="py-4 px-12 bg-zinc-800 border-solid border-2 border-green-500 text-white rounded-2xl font-bold text-2xl inline-flex items-center"
-            role="link"
-        >
-          <Icon name="mdi-light:calendar" size="32" class="text-white" />
-          <span><a href="#programme" :title="t('homepage.blocks.hero.label_programme')">{{ $t('homepage.blocks.hero.label_programme') }}</a></span>
-        </button>
-
-        <prismic-link
-          v-if="asLink(subscribeLink)"
-          :field="subscribeLink"
-          role="button"
-          class="py-4 px-12 bg-green-500 text-white rounded-2xl font-bold text-2xl"
-          :title="subscribeLink.text"
-        ></prismic-link>
-
-<!--        <div id="section05" class="demo">-->
-<!--          <a href="#programme">Programme<span class="text-zinc-400"></span></a>-->
-<!--        </div>-->
-      </div>
-      <div v-else-if="!isOpen">
-        <button
-          class="w-fit py-4 px-12 bg-zinc-800 border-solid border-2 border-green-500 text-white rounded-2xl font-bold text-2xl"
-          role="link"
-        >
-          {{ $t('homepage.blocks.hero.site_closed') }}
-        </button>
-      </div>
-
-
+      <slot name="subscribe" />
     </div>
   </div>
 

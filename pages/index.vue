@@ -50,7 +50,7 @@ const prismicFetchData = async() => {
 
   return { homepage, rates, events }
 };
-const { data, error } = await useAsyncData('data', prismicFetchData);
+const { data, status, error } = await useAsyncData('data', prismicFetchData, { watch: [locale]});
 
 const Hero = defineAsyncComponent(() => import('@/components/home/Hero.vue'))
 const TitleSectionHome = defineAsyncComponent(() => import('@/components/layouts/TitleSectionHome.vue'));
@@ -168,9 +168,26 @@ useSeo({
       :date-end="data?.homepage.data.date_end"
       :logo="data?.homepage.data.logo"
       :subscribe-link="data?.homepage.data.subscribe_link"
-    />
+    >
+      <template #subscribe>
+        <prismic-link
+          v-if="asLink(data?.homepage.data.subscribe_link) && data.homepage.data.enable_site"
+          :field="data?.homepage.data.subscribe_link"
+          role="link"
+          class="self-auto py-8 px-16  bg-green-500 text-white rounded-2xl font-bold text-4xl items-center my-8"
+          :title="data?.homepage.data.subscribe_link.text"
+        />
+        <button
+          v-else-if="!data.homepage.data.enable_site"
+          class="w-fit py-8 px-16 bg-zinc-800 border-solid border-2 border-green-500 text-white rounded-2xl font-bold text-4xl mx-auto"
+          role="link"
+        >
+          {{ $t('homepage.blocks.hero.site_closed') }}
+        </button>
+      </template>
+    </Hero>
 
-    <div v-if="true === data.homepage.data.enable_site">
+    <div v-if="data.homepage.data.enable_site">
       <section
         id="description"
         class="w-full md:py-14 sm:py-8 bg-cover bg-center border-t bg-fixed bg-no-repeat justify-center"
