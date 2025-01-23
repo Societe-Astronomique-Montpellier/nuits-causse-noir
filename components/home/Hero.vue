@@ -22,27 +22,43 @@ const rangeDates: ComputedRef<string> = computed<string>(() => t('homepage.block
   dateEnd: useFormatIntoFrenchDate(dateEnd.value, "short", locale.value)
 }));
 
-const classCssTitle = computed<string>(() => (isMobile ? `text-4xl py-4 text-center ` : `py-16 text-6xl text-center `) + ` mx-auto font-extralight text-neutral-200`);
-const classCssSubTitle = computed<string>(() => (isMobile ? `py-2 px-2 text-2xl text-justify ` : `px-64 text-3xl text-center `) + ` mx-auto font-extralight text-neutral-200`);
+const classCssTitle = computed<string>(() => (isMobile ? `text-4xl ` : `text-6xl `) + ` font-extralight text-neutral-200`);
+const classCssSubTitle = computed<string>(() => (isMobile ? `text-2xl ` : `text-3xl max-w-10xl `) + ` mx-auto font-extralight text-neutral-200`);
 </script>
 
 <template>
-  <div class="flex flex-col h-screen">
-    <div class="bg-hero bg-cover bg-center bg-no-repeat absolute inset-0 mx-auto py-24">
-      <prismic-image
-          v-if="isFilled.image(logo)"
-          :field="logo"
-          :class="isMobile ? `w-500` : `mx-auto w-large`"
-          :alt="titleHero"
-          fetchpriority="high"
-      />
-      <h2 v-if="isOpen" :class="classCssTitle">{{ rangeDates }}</h2>
+  <div class="relative h-screen w-full overflow-hidden">
+    <div class="bg-hero absolute inset-0 bg-cover bg-center bg-no-repeat" role="img" :aria-label="t('layout.title')">
 
-      <div v-if="!isMobile" :class="classCssSubTitle">{{ subtitle }}</div>
+      <div class="relative h-full flex items-center justify-center">
+        <div class="container mx-auto px-4 text-center">
+          <div
+            class="max-w-4xl mx-auto transform transition-all duration-500 space-y-8"
+            :style="{ opacity: isOpen ? 1 : 0, transform: isOpen ? 'translateY(0)' : 'translateY(20px)' }"
+          >
+            <prismic-image
+                v-if="isFilled.image(logo)"
+                :field="logo"
+                :class="isMobile ? `w-500` : `mx-auto w-large`"
+                :alt="titleHero"
+                fetchpriority="high"
+            />
 
-      <slot name="subscribe" />
+            <h2 v-if="isOpen" :class="classCssTitle">{{ rangeDates }}</h2>
+
+            <div v-if="!isMobile" :class="classCssSubTitle">{{ subtitle }}</div>
+
+            <div class="mt-8">
+              <slot name="subscribe" />
+            </div>
+        </div>
+      </div>
     </div>
   </div>
+  </div>
+
+
+
 
   <!-- AuroraBackground>
     <div

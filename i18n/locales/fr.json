@@ -1,5 +1,6 @@
 {
   "layout": {
+    "title": "Nuits du Causse Noir",
     "euro": "€",
     "photo_copyright": "Photo ©",
     "copyright": "Tous droits réservés",
@@ -8,6 +9,7 @@
   "homepage": {
     "blocks": {
       "hero": {
+        "title": "Tarifs",
         "date": "Du {dateStart} au {dateEnd}",
         "label_tarif": "Tarifs",
         "label_programme": "Programme",
