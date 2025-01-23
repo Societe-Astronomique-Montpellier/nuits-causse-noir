@@ -174,12 +174,15 @@ useSeo({
           v-if="asLink(data?.homepage.data.subscribe_link) && data.homepage.data.enable_site"
           :field="data?.homepage.data.subscribe_link"
           role="link"
-          class="self-auto py-8 px-16  bg-green-500 text-white rounded-2xl font-bold text-4xl items-center my-8"
+          class="group inline-flex items-center px-8 py-4 text-lg font-semibold text-white bg-green-500 rounded-full transition-all duration-300 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-black"
           :title="data?.homepage.data.subscribe_link.text"
-        />
+        >
+          {{ data?.homepage.data.subscribe_link.text }}
+          <Icon name="material-symbols-light:arrow-right-alt-rounded" size="32" />
+        </prismic-link>>
         <button
-          v-else-if="!data.homepage.data.enable_site"
-          class="w-fit py-8 px-16 bg-zinc-800 border-solid border-2 border-green-500 text-white rounded-2xl font-bold text-4xl mx-auto"
+          v-if="!data.homepage.data.enable_site"
+          class="group inline-flex items-center px-8 py-4 text-lg font-semibold text-white bg-green-500 rounded-full transition-all duration-300 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-black"
           role="link"
         >
           {{ $t('homepage.blocks.hero.site_closed') }}
@@ -212,7 +215,7 @@ useSeo({
       </section>
 
       <section
-        id="lieu"
+        id="place"
         class="w-full md:py-14 sm:py-8 bg-cover bg-center border-t bg-fixed bg-no-repeat justify-center bg-place"
       >
         <TitleSectionHome :title="components.filter(item => item.name === 'place')[0].title" customClass="" />

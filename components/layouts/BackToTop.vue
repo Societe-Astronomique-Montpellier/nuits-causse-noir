@@ -21,7 +21,7 @@ const handleScroll = () => (isVisible.value = window.scrollY > 200);
     @click="scrollToTop"
     :title="t('layout.backToTop')"
   >
-    <Icon name="material-symbols:arrow-upward" :size="iconSize" class="text-green-500" />
+    <Icon name="material-symbols-light:arrow-upward" :size="iconSize" class="text-green-500" />
   </button>
 </template>
 

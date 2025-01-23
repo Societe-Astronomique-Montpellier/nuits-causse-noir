@@ -15,7 +15,8 @@ export default defineNuxtConfig({
     "@nuxt/icon",
     "@nuxt/scripts",
     "nuxt-nodemailer",
-    "@nuxtjs/device"
+    "@nuxtjs/device",
+    "@nuxt/image"
   ],
   prismic: {
     endpoint: apiEndpoint || repositoryName
@@ -34,8 +35,8 @@ export default defineNuxtConfig({
     defaultLocale: 'fr-fr',
     detectBrowserLanguage: false,
     locales: [
-      { code: 'fr-fr', name: 'Français', file: 'fr.json' },
-      { code: 'en-gb', name: 'English', file: 'en.json' }
+      { code: 'fr-fr', name: 'Français', file: 'fr.json', flag: '🇫🇷' },
+      { code: 'en-gb', name: 'English', file: 'en.json', flag: '🇬🇧' }
     ],
     lazy: true,
     langDir: "locales/",
