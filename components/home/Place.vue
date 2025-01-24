@@ -17,10 +17,10 @@ const urlPradines: Ref<string> = ref('https://www.domaine-de-pradines.com/');
           <h4 class="mt-1 text-xl font-semibold uppercase leading-tight truncate">{{ data.title }}</h4>
 
           <div class="border-green-500 border-4 rounded-xl my-4"><LMap
-              style="height: 600px"
-              :zoom="15"
-              :center="data.coordinate"
-              :use-global-leaflet="false"
+            style="height: 600px"
+            :zoom="15"
+            :center="data.coordinate"
+            :use-global-leaflet="false"
           >
             <LTileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -32,17 +32,15 @@ const urlPradines: Ref<string> = ref('https://www.domaine-de-pradines.com/');
           </LMap></div>
 
           <div class="mt-4 flex-inline items-center justify-center">
-            <button
-              class="bg-green-500 text-white py-2 px-12 rounded-full font-bold hover:bg-zinc-800"
+            <NuxtLink
+              type="button"
+              :to="urlPradines"
+              :title="t('homepage.blocks.place.website_title')"
+              target="_blank"
+              class="bg-green-500 text-neutral-200 py-2 px-12 rounded-full font-bold hover:bg-zinc-800"
             >
-              <NuxtLink
-                :to="urlPradines"
-                :title="t('homepage.blocks.place.website_title')"
-                target="_blank"
-              >
-                {{ $t('homepage.blocks.place.website') }}
-              </NuxtLink>
-            </button>
+              {{ $t('homepage.blocks.place.website') }}
+            </NuxtLink>
           </div>
         </div>
       </div>

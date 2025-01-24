@@ -17,6 +17,7 @@ const menuItems: IMenu[] = reactive([
 ]);
 
 const LanguageSwitcher = defineAsyncComponent(() => import('@/components/layouts/LangSwitcher.vue'));
+const logoAlt = `Logo ${t('layout.title')}`;
 </script>
 
 <template>
@@ -32,9 +33,9 @@ const LanguageSwitcher = defineAsyncComponent(() => import('@/components/layouts
         <!-- logo -->
         <div class="flex-shrink-0 flex items-center">
           <NuxtImg
-            class="bg-zinc-800 rounded-full h-16 w-auto object-fill"
+            class="bg-zinc-200 rounded-full h-12 w-auto object-fill"
             src="/img/LOGO_NCN_NOIR.png"
-            alts="Logo"
+            :alt=logoAlt
           />
         </div>
 

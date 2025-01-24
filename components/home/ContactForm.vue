@@ -111,7 +111,7 @@ const submitForm = handleSubmit(async (submitedData) => {
         <button
           data-ripple-light="true"
           type="submit"
-          class="m-2 py-4 px-12 bg-green-500 text-white rounded-2xl font-bold text-2xl"
+          class="m-2 py-4 px-12 bg-green-500 text-neutral-200 rounded-2xl font-bold text-2xl"
           :disabled="isBtnDisabled"
         >
           <Icon name="line-md:loading-twotone-loop" v-show="isLoadingShow" size="24" />
