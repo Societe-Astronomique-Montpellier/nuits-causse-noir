@@ -35,7 +35,13 @@ const { rate } = toRefs(props)
           </div>
 
           <div class="inline-flex sm:inline-flex sm:shrink-0 sm:items-center sm:gap-2">
-            <button class="bg-green-500 text-neutral-200 py-2 px-12 rounded-full font-bold hover:bg-zinc-800 hover:border-green-500 hover:border-2">{{ rate.price }}&euro;</button>
+            <button class="
+                text-neutral-100 bg-green-700
+                hover:bg-zinc-800 hover:border-green-500 hover:border-2
+                transition-all duration-300
+                focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-black
+               py-2 px-12 rounded-full font-bold
+            ">{{ rate.price }}&euro;</button>
           </div>
         </div>
       </div>

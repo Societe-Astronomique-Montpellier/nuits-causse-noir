@@ -19,7 +19,9 @@ export default defineNuxtConfig({
     "@nuxt/image"
   ],
   prismic: {
-    endpoint: apiEndpoint || repositoryName
+    endpoint: apiEndpoint || repositoryName,
+    preview: false,
+    toolbar: false,
   },
   imports: {
     dirs: ["composables", "composables/**", "types/*.d.ts"],
@@ -69,9 +71,10 @@ export default defineNuxtConfig({
     smtpHost: process.env.NUXT_SMTP_HOST,
     smtpPort: parseInt(process.env.NUXT_SMTP_PORT || '465', 10),
     smtpUser: process.env.NUXT_SMTP_USER,
-    smtpPwd: process.env.NUXT_SMTP_PASSWORD,
+    smtpPassword: process.env.NUXT_SMTP_PASSWORD,
     public: {
       mailerTo: process.env.NUXT_RECEIVER_MAIL,
+      receiverMail: process.env.NUXT_RECEIVER_MAIL,
       internalApiSecret: process.env.NUXT_INTERNAL_API_SECRET,
     }
   }

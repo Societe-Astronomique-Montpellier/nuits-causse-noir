@@ -19,7 +19,7 @@ const { data } = toRefs(props);
         <prismic-rich-text
           :field="data.text"
           :serializer="richTextSerializer"
-          class="max-w-2xl text-neutral-200 font-thin lg:mb-12 sm:mb-8"
+          class="max-w-2xl text-neutral-100 font-thin lg:mb-12 sm:mb-8"
           :class="isMobile ? `text-xl` : `text-lg`"
         />
       </div>

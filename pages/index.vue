@@ -174,15 +174,21 @@ useSeo({
           v-if="asLink(data?.homepage.data.subscribe_link) && data.homepage.data.enable_site"
           :field="data?.homepage.data.subscribe_link"
           role="link"
-          class="group inline-flex items-center px-8 py-4 text-lg font-semibold text-neutral-200 bg-green-500 rounded-full transition-all duration-300 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-black"
+          class="
+            group inline-flex items-center px-8 py-4 rounded-full
+            text-lg font-semibold
+            text-neutral-100 bg-green-700
+            hover:bg-zinc-800 hover:border-green-500 hover:border-2
+            transition-all duration-300
+            focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-black"
           :title="data?.homepage.data.subscribe_link.text"
         >
           {{ data?.homepage.data.subscribe_link.text }}
           <Icon name="material-symbols-light:arrow-right-alt-rounded" size="32" />
-        </prismic-link>>
+        </prismic-link>
         <button
           v-if="!data.homepage.data.enable_site"
-          class="group inline-flex items-center px-8 py-4 text-lg font-semibold text-neutral-200 bg-green-500 rounded-full transition-all duration-300 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-black"
+          class="group inline-flex items-center px-8 py-4 text-lg font-semibold text-neutral-100 bg-green-500 rounded-full transition-all duration-300 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-black"
           role="link"
         >
           {{ $t('homepage.blocks.hero.site_closed') }}

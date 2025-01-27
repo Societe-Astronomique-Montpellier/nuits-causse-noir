@@ -10,11 +10,18 @@ interface IMenu {
   href: string;
 }
 const menuItems: IMenu[] = reactive([
-  { label: t('homepage.blocks.hero.title'), href: "#tarifs" },
-  { label: t('homepage.blocks.program.title'), href: "#programme" },
-  { label: t('homepage.blocks.place.title'), href: "#place" },
-  { label: t('homepage.blocks.contact.title'), href: "#contact" },
+  { label: 'homepage.blocks.hero.title', href: "#tarifs" },
+  { label: 'homepage.blocks.program.title', href: "#programme" },
+  { label: 'homepage.blocks.place.title', href: "#place" },
+  { label: 'homepage.blocks.contact.title', href: "#contact" },
 ]);
+
+const translatedMenuItems: ComputedRef<IMenu[]> = computed<IMenu[]>(() =>
+    menuItems.map(item => ({
+      label: t(item.label),
+      href: item.href,
+    }))
+);
 
 const LanguageSwitcher = defineAsyncComponent(() => import('@/components/layouts/LangSwitcher.vue'));
 const logoAlt = `Logo ${t('layout.title')}`;
@@ -42,7 +49,8 @@ const logoAlt = `Logo ${t('layout.title')}`;
         <!-- items -->
         <nav class="hidden md:flex space-x-8">
           <NuxtLink
-            v-for="item in menuItems"
+            v-for="(item, index) in translatedMenuItems"
+            :key="index"
             :to="item.href"
             class="text-zinc-300 hover:text-green-500 px-3 py-2 rounded-md text-xl font-medium transition-colors duration-200 "
           >
@@ -51,7 +59,7 @@ const logoAlt = `Logo ${t('layout.title')}`;
         </nav>
 
         <!-- language switcher -->
-        <LanguageSwitcher />
+        <LanguageSwitcher v-if="!isMobile" />
 
         <!-- Mobile menu button -->
         <div
@@ -74,18 +82,15 @@ const logoAlt = `Logo ${t('layout.title')}`;
     <div class="md:hidden" v-if="isMobile && isMenuOpen">
       <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-zinc-800">
         <NuxtLink
-          v-for="item in menuItems"
+          v-for="(item, index) in translatedMenuItems"
+          :key="index"
           :to="item.href"
           class="block px-3 py-2 rounded-md text-base font-medium text-zinc-200 hover:text-green-500 hover:bg-gray-100 transition-colors duration-200"
         >
           {{ item.label}}
         </NuxtLink>
 
-        <div class="border-t border-gray-200 pt-4" v-show="false">
-          <div class="px-3 py-2">
-            <p class="text-base font-medium text-gray-400">Languages</p>
-          </div>
-        </div>
+        <LanguageSwitcher v-if="isMobile" />
       </div>
     </div>
   </header>

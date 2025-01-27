@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const { locale, locales, setLocale } = useI18n()
+const { isMobile } = useDevice();
 
 // Assuming that locales.value is an array of objects with a 'code' property
 const isLanguageOpen: Ref<boolean> = ref(false);
@@ -17,7 +18,7 @@ const switchLanguage = async (newLocale: any) => {
 </script>
 
 <template>
-  <div class="hidden md:flex items-center relative">
+  <div v-if="!isMobile" class="hidden md:flex items-center relative">
     <button
       class="flex items-center space-x-2 text-zinc-400 hover:text-green-500 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
       @click="isLanguageOpen = !isLanguageOpen"
@@ -39,6 +40,23 @@ const switchLanguage = async (newLocale: any) => {
           </span>
         </button>
       </div>
+    </div>
+  </div>
+
+  <div v-if="isMobile" class="border-t border-gray-200 pt-4">
+    <div class="px-3 py-2">
+      <p class="text-base font-medium text-gray-400">{{  $t('layout.languages') }}</p>
+      <button
+          v-for="otherLocale in availableLocales"
+          class="w-full text-left mt-2 px-3 py-2 text-base font-medium text-zinc-300 hover:bg-green-500 hover:text-gray-900 rounded-md transition-colors duration-200"
+          role="menuitem"
+          @click="switchLanguage(otherLocale)"
+      >
+        <span class="mr-2">
+          {{ otherLocale.flag }}
+        </span>
+        {{ otherLocale.name }}
+      </button>
     </div>
   </div>
 </template>

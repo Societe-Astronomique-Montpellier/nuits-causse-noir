@@ -32,7 +32,7 @@ export default defineEventHandler(async (event): Promise<ResponseData> => {
             secure: true,
             auth: {
                 user: config.smtpUser,
-                pass: config.smtpPwd,
+                pass: config.smtpPassword,
             },
         });
 
@@ -44,7 +44,7 @@ export default defineEventHandler(async (event): Promise<ResponseData> => {
 
         const result = await transporter.sendMail({
             from: `"Societe-Astronomique-Montpellier" <${config.smtpUser}>`,
-            to: config.public.mailerTo,
+            to: config.public.receiverMail,
             replyTo: email,
             subject: `[NCN] Message de ${name} - ${email}`,
             text: message,

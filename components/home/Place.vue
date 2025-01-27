@@ -23,10 +23,10 @@ const urlPradines: Ref<string> = ref('https://www.domaine-de-pradines.com/');
             :use-global-leaflet="false"
           >
             <LTileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution="&amp;copy; <a href=&quot;https://www.openstreetmap.org/&quot;>OpenStreetMap</a> contributors"
-                layer-type="base"
-                name="OpenStreetMap"
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            a ttribution="&amp;copy; <a href=&quot;https://www.openstreetmap.org/&quot;>OpenStreetMap</a> contributors"
+              layer-type="base"
+              name="OpenStreetMap"
             />
             <LMarker :lat-lng="data.coordinate" />
           </LMap></div>
@@ -37,8 +37,13 @@ const urlPradines: Ref<string> = ref('https://www.domaine-de-pradines.com/');
               :to="urlPradines"
               :title="t('homepage.blocks.place.website_title')"
               target="_blank"
-              class="bg-green-500 text-neutral-200 py-2 px-12 rounded-full font-bold hover:bg-zinc-800"
-            >
+              class="
+                text-neutral-100 bg-green-700
+                hover:bg-zinc-800 hover:border-green-500 hover:border-2
+                transition-all duration-300
+                focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-black
+                px-8 py-4 rounded-full font-bold
+            ">
               {{ $t('homepage.blocks.place.website') }}
             </NuxtLink>
           </div>

@@ -111,11 +111,16 @@ const submitForm = handleSubmit(async (submitedData) => {
         <button
           data-ripple-light="true"
           type="submit"
-          class="m-2 py-4 px-12 bg-green-500 text-neutral-200 rounded-2xl font-bold text-2xl"
+          class="
+            text-neutral-100 bg-green-700
+            hover:bg-zinc-800 hover:border-green-500 hover:border-2
+            transition-all duration-300
+            focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-black
+            px-8 py-4 rounded-full font-bold"
           :disabled="isBtnDisabled"
         >
-          <Icon name="line-md:loading-twotone-loop" v-show="isLoadingShow" size="24" />
           {{ $t('homepage.blocks.contact.form.submit') }}
+          <Icon name="line-md:loading-twotone-loop" v-show="isLoadingShow" size="24" />
         </button>
       </form>
     </div>

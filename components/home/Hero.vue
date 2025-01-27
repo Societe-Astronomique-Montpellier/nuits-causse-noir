@@ -22,8 +22,8 @@ const rangeDates: ComputedRef<string> = computed<string>(() => t('homepage.block
   dateEnd: useFormatIntoFrenchDate(dateEnd.value, "short", locale.value)
 }));
 
-const classCssTitle = computed<string>(() => (isMobile ? `text-4xl ` : `text-6xl `) + ` font-extralight text-neutral-200`);
-const classCssSubTitle = computed<string>(() => (isMobile ? `text-2xl ` : `text-3xl max-w-10xl `) + ` mx-auto font-extralight text-neutral-200`);
+const classCssTitle = computed<string>(() => (isMobile ? `text-4xl ` : `text-6xl `) + ` font-extralight text-neutral-100`);
+const classCssSubTitle = computed<string>(() => (isMobile ? `text-2xl ` : `text-3xl max-w-10xl `) + ` mx-auto font-extralight text-neutral-100`);
 </script>
 
 <template>
