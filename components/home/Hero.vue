@@ -36,14 +36,15 @@ const classCssSubTitle = computed<string>(() => (isMobile ? `text-2xl ` : `text-
             class="max-w-4xl mx-auto transform transition-all duration-500 space-y-8"
             :style="{ opacity: isOpen ? 1 : 0, transform: isOpen ? 'translateY(0)' : 'translateY(20px)' }"
           >
-            <prismic-image
-                v-if="isFilled.image(logo)"
-                :field="logo"
-                :class="isMobile ? `w-500` : `mx-auto w-large`"
-                :alt="titleHero"
-                fetchpriority="high"
-            />
-
+            <h1 :title="t('layout.title')">
+              <prismic-image
+                  v-if="isFilled.image(logo)"
+                  :field="logo"
+                  :class="isMobile ? `w-500` : `mx-auto w-large`"
+                  :alt="titleHero"
+                  fetchpriority="high"
+              />
+            </h1>
             <h2 v-if="isOpen" :class="classCssTitle">{{ rangeDates }}</h2>
 
             <div v-if="!isMobile" :class="classCssSubTitle">{{ subtitle }}</div>

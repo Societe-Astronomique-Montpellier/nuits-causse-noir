@@ -78,7 +78,7 @@ const getTime = (dateEvent: TimestampField): string => {
         </div>
         <div>
           <div class="flex items-center">
-            <h3 class="text-xl font-semibold">{{ event.data.titre }}</h3>
+            <h4 class="text-xl font-semibold">{{ event.data.titre }}</h4>
           </div>
           <p>{{ event.data.author }}</p>
           <p>{{ event.data.author_job }}</p>
