@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type {DateField, ImageField, KeyTextField, LinkField} from "@prismicio/client";
+import type {DateField, ImageField, KeyTextField} from "@prismicio/client";
 import type {ComputedRef} from "vue";
 import { isFilled } from "@prismicio/helpers";
 
 const { t, locale } = useI18n();
 const { isMobile } = useDevice();
-const AuroraBackground = defineAsyncComponent(() => import('~/components/AuroraBackground.vue'))
+// const AuroraBackground = defineAsyncComponent(() => import('~/components/AuroraBackground.vue'))
 
 const props = defineProps<{
   isOpen: boolean,

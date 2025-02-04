@@ -4,11 +4,12 @@ import {isFilled, asLink, asImageSrc} from "@prismicio/helpers";
 import {type ImageField, type LinkField, type RichTextField} from "@prismicio/client";
 import type {ComputedRef} from "vue";
 import {LinkType} from "@prismicio/types";
+import {useGroupEvents} from "~/composables/useGroupEvents";
 
 /**
  * Composables
  */
-const { locale, t } = useI18n();
+const { locale, locales, t } = useI18n();
 const prismic = usePrismic();
 // const { getComponent } = useDynamicComponent();
 
@@ -20,15 +21,16 @@ definePageMeta({
  * Query
  */
 const prismicFetchData = async() => {
+  const currentLang = locales.value.find(l => l.code === locale.value).iso;
   const [homepage, rates, events] = await Promise.all([
     (
       await prismic.client.getSingle("homepage", {
-        lang: locale.value
+        lang: currentLang
       }) as HomepageDocument
     ),
     (
       await prismic.client.getAllByType<AllDocumentTypes>("rate", {
-        lang: locale.value,
+        lang: currentLang,
         filters: [
             prismic.filter.at('my.rate.display', true)
         ],
@@ -40,7 +42,7 @@ const prismicFetchData = async() => {
     ),
     (
       await prismic.client.getAllByType<AllDocumentTypes>("event", {
-        lang: locale.value,
+        lang: currentLang,
         orderings: {
           field: 'my.event.date_event',
         }
@@ -50,6 +52,7 @@ const prismicFetchData = async() => {
 
   return { homepage, rates, events }
 };
+
 const { data, status, error } = await useAsyncData('data', prismicFetchData, { watch: [locale]});
 
 const Hero = defineAsyncComponent(() => import('@/components/home/Hero.vue'))
@@ -70,19 +73,7 @@ const gridRatesNumber: ComputedRef<number> = computed<number>(() => (0 === 2 % (
 
 // Program component
 type GroupedByDay = Record<string, EventDocument[]>;
-const groupedByDay: ComputedRef<GroupedByDay | undefined> = computed<GroupedByDay | undefined>(() => {
-  return data.value?.events.reduce<GroupedByDay>((acc: GroupedByDay, event: EventDocument) => {
-    const day = event.data.date_event?.split('T')[0]; // Extract the date part (YYYY-MM-DD)
-    if (day !== undefined && !acc[day]) {
-      acc[day] = [];
-    }
-
-    if (day !== undefined) {
-      acc[day].push(event);
-    }
-    return acc;
-  }, {});
-});
+const groupedByDay: ComputedRef<GroupedByDay | undefined> = computed<GroupedByDay | undefined>(() => useGroupEvents(data?.value?.events));
 
 // Place component
 const pradinesCoordinates: ComputedRef<[number, number]> = computed<[number, number]>(() => [data.value?.homepage.data.place_coords.latitude as number, data.value?.homepage.data.place_coords.longitude as number]);
