@@ -8,7 +8,6 @@
       <img
         class="relative h-full object-cover"
         :src="image"
-        :alt="image"
         loading="lazy"
       />
     </div>

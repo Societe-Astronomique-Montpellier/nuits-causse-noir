@@ -1,6 +1,7 @@
 <script setup lang="ts">
 // https://purecode.ai/generations/7332c5d8-dd30-40fe-82ee-3e423d223aeb/0
-const { t } = useI18n();
+const { t, locale } = useI18n();
+const localePath = useLocalePath();
 const { isMobile } = useDevice();
 
 const isMenuOpen: Ref<boolean> = ref(false);
@@ -39,11 +40,14 @@ const logoAlt = `Logo ${t('layout.title')}`;
       >
         <!-- logo -->
         <div class="flex-shrink-0 flex items-center">
-          <NuxtImg
-            class="bg-zinc-200 rounded-full h-12 w-auto object-fill"
-            src="/img/LOGO_NCN_NOIR.png"
-            :alt=logoAlt
-          />
+          <NuxtLink :to="localePath('/', locale)">
+            <NuxtImg
+              class="bg-zinc-200 rounded-full h-12 w-auto object-fill"
+              src="/img/LOGO_NCN_NOIR.png"
+              :alt=logoAlt
+            />
+          </NuxtLink>
+
         </div>
 
         <!-- items -->
@@ -84,7 +88,7 @@ const logoAlt = `Logo ${t('layout.title')}`;
         <NuxtLink
           v-for="(item, index) in translatedMenuItems"
           :key="index"
-          :to="item.href"
+          :to="item?.href"
           class="block px-3 py-2 rounded-md text-base font-medium text-zinc-200 hover:text-green-500 hover:bg-gray-100 transition-colors duration-200"
         >
           {{ item.label}}

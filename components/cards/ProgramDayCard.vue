@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type {  EventDocument} from "~/prismicio-types";
+import type { EventDocument } from "~/prismicio-types";
 import type {DateField} from "@prismicio/client";
 import type {TimestampField} from "@prismicio/types";
 
@@ -77,11 +77,14 @@ const getTime = (dateEvent: TimestampField): string => {
           {{ getTime(event.data.date_event) }}
         </div>
         <div>
+
+
           <div class="flex items-center">
             <h4 class="text-xl font-semibold">{{ event.data.titre }}</h4>
           </div>
-          <p>{{ event.data.author }}</p>
-          <p>{{ event.data.author_job }}</p>
+          <slot name="event-description"></slot>
+<!--          <p>{{ event.data.author }}</p>-->
+<!--          <p>{{ event.data.author_job }}</p>-->
         </div>
       </div>
     </div>
