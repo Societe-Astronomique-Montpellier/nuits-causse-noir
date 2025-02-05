@@ -22,6 +22,14 @@ export default defineNuxtConfig({
     endpoint: apiEndpoint || repositoryName,
     preview: false,
     toolbar: false,
+    clientConfig: {
+      routes: [
+        {
+          type: "landing_page",
+          path: "/:lang/:uid",
+        },
+      ]
+    }
   },
   imports: {
     dirs: ["composables", "composables/**", "types/*.d.ts"],
