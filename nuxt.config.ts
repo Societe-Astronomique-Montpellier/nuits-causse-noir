@@ -26,7 +26,7 @@ export default defineNuxtConfig({
       routes: [
         {
           type: "landing_page",
-          path: "/:lang/:uid",
+          path: "/:lang?/:uid",
         },
       ]
     }

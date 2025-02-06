@@ -46,6 +46,18 @@ interface EventDocumentData {
   >;
 
   /**
+   * Afficher informations field in *Event*
+   *
+   * - **Field Type**: Boolean
+   * - **Placeholder**: *None*
+   * - **Default Value**: true
+   * - **API ID Path**: event.display_author
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#boolean
+   */
+  display_author: prismic.BooleanField;
+
+  /**
    * Intervenant (conférence & atelier) field in *Event*
    *
    * - **Field Type**: Text
@@ -77,6 +89,17 @@ interface EventDocumentData {
    * - **Documentation**: https://prismic.io/docs/field#image
    */
   photo_intervenant: prismic.ImageField<never>;
+
+  /**
+   * Description field in *Event*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: Description de l'intervention
+   * - **API ID Path**: event.content
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  content: prismic.RichTextField;
 
   /**
    * Slice Zone field in *Event*

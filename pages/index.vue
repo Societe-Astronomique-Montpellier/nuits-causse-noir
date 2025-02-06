@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type {AllDocumentTypes, EventDocument, HomepageDocument, RateDocument} from "~/prismicio-types";
+import type {AllDocumentTypes, EventDocument, HomepageDocument, RateDocument, } from "~/prismicio-types";
 import {isFilled, asLink, asImageSrc} from "@prismicio/helpers";
 import {type ImageField, type LinkField, type RichTextField} from "@prismicio/client";
 import type {ComputedRef} from "vue";
@@ -52,7 +52,6 @@ const prismicFetchData = async() => {
 
   return { homepage, rates, events }
 };
-
 const { data, status, error } = await useAsyncData('data', prismicFetchData, { watch: [locale]});
 
 const Hero = defineAsyncComponent(() => import('@/components/home/Hero.vue'))
