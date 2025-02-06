@@ -39,6 +39,15 @@
           ]
         }
       },
+      "display_author": {
+        "type": "Boolean",
+        "config": {
+          "label": "Afficher informations",
+          "placeholder_false": "false",
+          "placeholder_true": "true",
+          "default_value": true
+        }
+      },
       "author": {
         "type": "Text",
         "config": {
@@ -59,6 +68,15 @@
           "label": "Photo intervenant",
           "constraint": {},
           "thumbnails": []
+        }
+      },
+      "content": {
+        "type": "StructuredText",
+        "config": {
+          "label": "Description",
+          "placeholder": "Description de l'intervention",
+          "allowTargetBlank": true,
+          "multi": "paragraph,strong,em,hyperlink,list-item,o-list-item"
         }
       },
       "slices": {
