@@ -78,7 +78,7 @@ const groupedByDay: ComputedRef<GroupedByDay | undefined> = computed<GroupedByDa
 const pradinesCoordinates: ComputedRef<[number, number]> = computed<[number, number]>(() => [data.value?.homepage.data.place_coords.latitude as number, data.value?.homepage.data.place_coords.longitude as number]);
 
 // Gallery component
-const images: ComputedRef<string[] | undefined> = computed<string[] | undefined>(() => data.value?.homepage.data.gallery.map(image => image.image.url as string));
+const images: ComputedRef<ImageField[] | undefined> = computed<ImageField[] | undefined>(() => data.value?.homepage.data.gallery.map(image => image.image as ImageField));
 const youtubeVideoId: ComputedRef<string | null> = computed<string | null>(() => {
   const youtubeLinkField: LinkField | undefined = data.value?.homepage.data.youtube_link;
   if (isFilled.link(youtubeLinkField) && youtubeLinkField.link_type === LinkType.Web) {
