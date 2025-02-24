@@ -5,18 +5,17 @@ const props = defineProps<{
 }>();
 const { data } = toRefs(props);
 
-
 const urlPradines: Ref<string> = ref('https://www.domaine-de-pradines.com/');
 </script>
 
 <template>
-  <div class="max-w-screen-xl mx-auto p-5 wrapper antialiased text-gray-900">
+  <div class="max-w-screen-xl mx-auto md:p-5 sm:p-1 wrapper antialiased text-gray-900">
     <div>
       <div class="relative px-4 ">
-        <div class="bg-white p-6 rounded-lg shadow-lg">
-          <h4 class="mt-1 text-xl font-semibold uppercase leading-tight truncate">{{ data.title }}</h4>
+        <div class="bg-white md:p-6 sm:p-2 rounded-lg shadow-lg">
+          <h4 class="mt-1 p-2 text-xl font-semibold uppercase leading-tight truncate">{{ data.title }}</h4>
 
-          <div class="border-green-500 border-4 rounded-xl my-4"><LMap
+          <div class="border-green-500 md:border-4 sm:border-2 rounded-xl md:my-4 sm:my-1"><LMap
             style="height: 600px"
             :zoom="15"
             :center="data.coordinate"
@@ -24,7 +23,7 @@ const urlPradines: Ref<string> = ref('https://www.domaine-de-pradines.com/');
           >
             <LTileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            a ttribution="&amp;copy; <a href=&quot;https://www.openstreetmap.org/&quot;>OpenStreetMap</a> contributors"
+              attribution="&amp;copy; <a href=&quot;https://www.openstreetmap.org/&quot;>OpenStreetMap</a> contributors"
               layer-type="base"
               name="OpenStreetMap"
             />

@@ -71,7 +71,6 @@ const getTime = (dateEvent: TimestampField): string => {
 
   return `${hours}H${minutes}`;
 }
-
 </script>
 
 <template>
@@ -99,15 +98,15 @@ const getTime = (dateEvent: TimestampField): string => {
           <button
             v-if="event.data.display_author"
             class="flex-none mr-1 focus:outline-none focus:ring-2 focus:ring-opacity-50 items-end"
-            aria-controls="expandable-content"
+            aria-label="{{ $t('layout.more_details') }}"
             :style="getArrowStyle(event.data.type)"
             @click="toggle(event.uid)"
           >
             <Icon
-                name="material-symbols-light:keyboard-arrow-down-rounded"
-                size="24"
-                class="transition-transform duration-500"
-                :class="isExpanded[event.uid] ? `transform rotate-180`: ``"
+              name="material-symbols-light:keyboard-arrow-down-rounded"
+              size="24"
+              class="transition-transform duration-500"
+              :class="isExpanded[event.uid] ? `transform rotate-180`: ``"
             />
           </button>
 
@@ -136,7 +135,7 @@ const getTime = (dateEvent: TimestampField): string => {
                     <prismic-rich-text
                       :field="event.data.content"
                       :serializer="richTextSerializer"
-                      class="max-w-2xl font-thin lg:mb-4 sm:mb-2"
+                      class="mr-2 font-thin lg:mb-4 sm:mb-2"
                       :class="isMobile ? `text-xl` : `text-lg`"
                     />
                   </div>
