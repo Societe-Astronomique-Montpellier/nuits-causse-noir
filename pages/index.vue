@@ -52,8 +52,9 @@ const prismicFetchData = async() => {
 
   return { homepage, rates, events }
 };
-const { data, status, error } = await useAsyncData('data', prismicFetchData, { watch: [locale]});
+const { data, status } = await useAsyncData('data', prismicFetchData, { watch: [locale]});
 
+const LoadingComponent = defineAsyncComponent(() => import('@/components/layouts/LoadingComponent.vue'));
 const Hero = defineAsyncComponent(() => import('@/components/home/Hero.vue'))
 const TitleSectionHome = defineAsyncComponent(() => import('@/components/layouts/TitleSectionHome.vue'));
 const Description = defineAsyncComponent(() => import('@/components/home/Description.vue'));
@@ -149,9 +150,10 @@ useSeo({
 </script>
 
 <template>
-  <div class="" v-if="data">
+  <LoadingComponent v-if="status === 'pending'" />
+  <div v-else-if="status === 'success' && data">
     <Hero
-      :isOpen="data.homepage.data.enable_site"
+      :isOpen="data?.homepage.data.enable_site"
       :title-hero="data?.homepage.data.title"
       :subtitle="data?.homepage.data.subtitle"
       :date-start="data?.homepage.data.date_start"
