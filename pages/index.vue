@@ -198,7 +198,7 @@ useSeo({
 
       <section
         id="tarifs"
-        class="w-full md:py-14 sm:py-8 bg-cover bg-center border-t bg-fixed bg-no-repeat justify-center bg-rates "
+        class="w-full md:py-14 sm:py-8 bg-cover bg-center border-t bg-fixed bg-no-repeat justify-center bg-rates"
       >
         <TitleSectionHome :title="components.filter(item => item.name === 'rates')[0].title" customClass="" />
         <Rates :data="{gridRatesNumber: gridRatesNumber, listRates: data.rates}" />
