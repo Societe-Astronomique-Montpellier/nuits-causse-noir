@@ -21,7 +21,8 @@ definePageMeta({
  * Query
  */
 const prismicFetchData = async() => {
-  const currentLang = locales.value.find(l => l.code === locale.value).iso;
+  const currentLang = locales.value.find(l => l.code === locale.value)?.iso ?? "fr-FR";
+  console.log(`Current lang ${currentLang}`);
   const [homepage, rates, events] = await Promise.all([
     (
       await prismic.client.getSingle("homepage", {

@@ -32,7 +32,9 @@
       "place": {
         "title": "Place",
         "website": "Website",
-        "website_title": "Website of \"domaine des Pradines\""
+        "website_title": "Website of \"domaine des Pradines\"",
+        "observers": "Observers zone",
+        "astrophotographs": "Astrophotographies zone"
       },
       "gallery": {
         "title": "Gallery"

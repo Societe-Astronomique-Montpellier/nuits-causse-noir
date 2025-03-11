@@ -31,7 +31,9 @@
       "place": {
         "title": "Le lieu",
         "website": "Site internet",
-        "website_title": "Site internet du domaine des Pradines"
+        "website_title": "Site internet du domaine des Pradines",
+        "observers": "Zone observateurs",
+        "astrophotographs": "Zone astrophotographie"
       },
       "gallery": {
         "title": "Galerie"

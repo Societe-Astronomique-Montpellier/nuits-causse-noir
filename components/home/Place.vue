@@ -67,12 +67,12 @@ interface IZone {
 const listZones: IZone[] = reactive([
   {
     name: "observers",
-    label: "Zone d'observations avec instruments",
+    label: t('homepage.blocks.place.observers'),
     color: "#96ffff",
   },
   {
     name: "astrophotographs",
-    label: "Zone des astrophotographes",
+    label:  t('homepage.blocks.place.astrophotographs'),
     color: "#5c0a0a",
   },
 ])

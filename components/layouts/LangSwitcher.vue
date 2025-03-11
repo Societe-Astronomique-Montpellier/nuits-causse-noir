@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import type { PrismicDocument } from "@prismicio/client";
-
 const { locale, locales, setLocale } = useI18n()
 const { isMobile } = useDevice();
 
@@ -26,7 +24,7 @@ const switchLanguage = async (newLocale: any) => {
       @click="isLanguageOpen = !isLanguageOpen"
     >
       <Icon name="material-symbols-light:language" size="32" />
-      <span class="mr-2">{{ locales.find((i: any) => i.code === locale).flag }}</span>
+      <span class="mr-2">{{ locales.find((i: any) => i.code === locale)?.flag }}</span>
     </button>
 
     <div v-if="isLanguageOpen" class="absolute right-0 mt-32 w-48 rounded-md shadow-lg bg-zinc-800 ring-1 ring-black ring-opacity-5">
