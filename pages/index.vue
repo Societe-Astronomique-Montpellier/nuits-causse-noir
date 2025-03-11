@@ -4,7 +4,6 @@ import {isFilled, asLink, asImageSrc} from "@prismicio/helpers";
 import {type ImageField, type LinkField, type RichTextField} from "@prismicio/client";
 import type {ComputedRef} from "vue";
 import {LinkType} from "@prismicio/types";
-import {useGroupEvents} from "~/composables/useGroupEvents";
 
 /**
  * Composables
@@ -22,7 +21,6 @@ definePageMeta({
  */
 const prismicFetchData = async() => {
   const currentLang = locales.value.find(l => l.code === locale.value)?.iso ?? "fr-FR";
-  console.log(`Current lang ${currentLang}`);
   const [homepage, rates, events] = await Promise.all([
     (
       await prismic.client.getSingle("homepage", {
