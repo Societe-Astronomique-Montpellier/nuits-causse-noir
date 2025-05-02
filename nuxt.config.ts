@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   typescript: {
     typeCheck: true,
   },  
-  compatibilityDate: '2025-03-11',
+  compatibilityDate: '2025-05-02',
   devtools: { enabled: true },
   modules: [
     "@nuxtjs/prismic",
@@ -41,16 +41,15 @@ export default defineNuxtConfig({
     "@fontsource/raleway/200-italic.css",
   ],
   i18n: {
-    strategy: 'prefix_except_default',
-    defaultLocale: 'fr',
-    detectBrowserLanguage: false,
+    defaultLocale: "fr",
     locales: [
       { code: 'fr', iso: 'fr-FR', name: 'Français', file: 'fr.json', flag: '🇫🇷' },
       { code: 'en', iso: 'en-GB', name: 'English', file: 'en.json', flag: '🇬🇧' }
     ],
     lazy: true,
-    langDir: "locales/",
-    vueI18n: "./i18n/i18n.config.ts"
+    langDir: "locales",
+    strategy: "prefix_except_default",
+    detectBrowserLanguage: false,
   },
   app: {
     head: {

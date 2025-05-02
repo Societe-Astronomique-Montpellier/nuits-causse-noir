@@ -81,12 +81,12 @@ const submitForm = handleSubmit(async (submitedData) => {
         </div>
       </div>
 
-      <form action="#" @submit.prevent="submitForm" v-show="!isSuccess">
+      <form action="#" @submit.prevent="submitForm" v-show="!isSuccess" novalidate>
 
         <TextField
           name="name"
           :label="t('homepage.blocks.contact.form.name.label')"
-          _placeholder="t('homepage.blocks.contact.form.name.placeholder')"
+          :placeholder="t('homepage.blocks.contact.form.name.placeholder')"
           type="text"
           required
           :model-value="formData.name"
@@ -95,7 +95,7 @@ const submitForm = handleSubmit(async (submitedData) => {
         <TextField
           name="email"
           :label="t('homepage.blocks.contact.form.email.label')"
-          _placeholder="t('homepage.blocks.contact.form.email.placeholder')"
+          :placeholder="t('homepage.blocks.contact.form.email.placeholder')"
           type="email"
           required
           :model-value="formData.email"
@@ -104,7 +104,7 @@ const submitForm = handleSubmit(async (submitedData) => {
         <TextAreaField
           name="message"
           :label="t('homepage.blocks.contact.form.message.label')"
-          _placeholder="t('homepage.blocks.contact.form.message.placeholder')"
+          :placeholder="t('homepage.blocks.contact.form.message.placeholder')"
           :model-value="formData.message"
         />
 

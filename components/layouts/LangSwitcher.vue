@@ -12,7 +12,7 @@ const availableLocales = computed(() =>
 
 const switchLanguage = async (newLocale: any) => {
   setLocale(newLocale.code);
-  locale.value = newLocale;
+  locale.value = newLocale.code;
   isLanguageOpen.value = !isLanguageOpen.value;
 }
 </script>

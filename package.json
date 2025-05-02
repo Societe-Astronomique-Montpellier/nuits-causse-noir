@@ -24,7 +24,8 @@
     "@prismicio/helpers": "^2.3.9",
     "@vueuse/core": "^12.3.0",
     "@vueuse/motion": "^2.2.6",
-    "nuxt": "^3.16.0",
+    "nuxt": "^3.17.1",
+    "unenv": "^1.10.0",
     "vue": "latest",
     "vue-router": "latest",
     "zod": "^3.24.1"

@@ -1,11 +1,13 @@
 <script setup lang="ts">
 const { t } = useI18n();
 const { $apiFetch } = useNuxtApp();
+const { isMobile } = useDevice();
 const props = defineProps<{
   data: any
 }>();
 const { data } = toRefs(props);
 
+const mapHeight: ComputedRef<Number> = computed<Number>(() => isMobile ? 400 : 800);
 
 interface GeoJSONFeature {
   type: string;
@@ -31,6 +33,7 @@ const geoJsonData = ref(); //ref<GeoJsonObject | GeoJsonObject[] | undefined>(un
 onMounted(async() => {
   geoJsonData.value = await $apiFetch<GeoJSONFeatureCollection>('/geojson?file=data'); // as GeoJsonObject;
 })
+
 
 const geoJsonStyler = (feature: any) => {
   const zone = feature.properties.name;
@@ -91,7 +94,7 @@ const urlPradines: Ref<string> = ref('https://www.domaine-de-pradines.com/');
                   <h4 class="text-4xl md:text-5xl font-bold  text-zinc-400 leading-tight mb-6 animate-fade-in">
                     {{ data.title }}
                   </h4>
-                  <div class="text-lg md:text-xl text-zinc-500 mb-8 max-w-2xl">
+                  <div class="text-lg md:text-xl text-zinc-500 lg:mb-8 sm:mb-2 max-w-2xl">
                     <div
                       v-for="zone in listZones"
                       :key="zone.name"
@@ -126,7 +129,7 @@ const urlPradines: Ref<string> = ref('https://www.domaine-de-pradines.com/');
                 <div class="flex-1 relative">
                   <div class="relative rounded-2xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-300">
                     <LMap
-                      style="height: 800px"
+                      :style="{'height': `${mapHeight}px`}"
                       :zoom="17"
                       :center="data.coordinate"
                       :use-global-leaflet="false"
