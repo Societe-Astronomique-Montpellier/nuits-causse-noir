@@ -19,17 +19,20 @@ definePageMeta({
 /**
  * Query
  */
-const prismicFetchData = async() => {
-  const currentLang = locales.value.find(l => l.code === locale.value)?.iso ?? "fr-FR";
+const prismicLang: ComputedRef<string> = computed<string>(() =>
+    locales.value.find(l => l.code === locale.value)?.iso || 'fr-FR'
+)
+
+const prismicFetchData = async () => {
   const [homepage, rates, events] = await Promise.all([
     (
       await prismic.client.getSingle("homepage", {
-        lang: currentLang
+        lang: prismicLang.value
       }) as HomepageDocument
     ),
     (
       await prismic.client.getAllByType<AllDocumentTypes>("rate", {
-        lang: currentLang,
+        lang: prismicLang.value,
         filters: [
             prismic.filter.at('my.rate.display', true)
         ],
@@ -41,7 +44,7 @@ const prismicFetchData = async() => {
     ),
     (
       await prismic.client.getAllByType<AllDocumentTypes>("event", {
-        lang: currentLang,
+        lang: prismicLang.value,
         orderings: {
           field: 'my.event.date_event',
         }
@@ -51,7 +54,10 @@ const prismicFetchData = async() => {
 
   return { homepage, rates, events }
 };
-const { data, status } = await useAsyncData('data', prismicFetchData, { watch: [locale]});
+
+const { data, status } = await useAsyncData('data', prismicFetchData, {
+  watch: [locale],
+});
 
 const LoadingComponent = defineAsyncComponent(() => import('@/components/layouts/LoadingComponent.vue'));
 const Hero = defineAsyncComponent(() => import('@/components/home/Hero.vue'))

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { LocaleObject } from '@nuxtjs/i18n'
 const { locale, locales, setLocale } = useI18n()
 const { isMobile } = useDevice();
 
@@ -10,9 +11,8 @@ const availableLocales = computed(() =>
   locales.value.filter(i => i.code !== locale.value)
 );
 
-const switchLanguage = async (newLocale: any) => {
-  setLocale(newLocale.code);
-  locale.value = newLocale.code;
+const switchLanguage = async (newLocale: LocaleObject) => {
+  await setLocale(newLocale.code)
   isLanguageOpen.value = !isLanguageOpen.value;
 }
 </script>
@@ -31,12 +31,13 @@ const switchLanguage = async (newLocale: any) => {
       <div class="py-1" role="menu" aria-orientation="vertical">
         <button
             v-for="otherLocale in availableLocales"
+            :key="otherLocale.code"
             class="w-full text-left px-4 py-2 text-large text-zinc-300 hover:bg-green-500 hover:text-gray-900 transition-colors duration-200"
             role="menuitem"
             @click="switchLanguage(otherLocale)"
         >
           <span class="mr-2">
-            {{ otherLocale.flag }} {{ otherLocale.name }}
+            {{ otherLocale.flag || '' }} {{ otherLocale.name }}
           </span>
         </button>
       </div>
