@@ -193,7 +193,7 @@ useSeo({
       </template>
     </Hero>
 
-    <div v-if="data.homepage.data.enable_site">
+    <div>
       <section
         id="description"
         class="w-full md:py-14 sm:py-8 bg-cover bg-center border-t bg-fixed bg-no-repeat justify-center"
@@ -202,6 +202,7 @@ useSeo({
       </section>
 
       <section
+        v-if="data.homepage.data.enable_site"
         id="tarifs"
         class="w-full md:py-14 sm:py-8 bg-cover bg-center border-t bg-fixed bg-no-repeat justify-center bg-rates"
       >
@@ -210,6 +211,7 @@ useSeo({
       </section>
 
       <section
+        v-if="data.homepage.data.enable_site"
         id="programme"
         class="w-full md:py-14 sm:py-8 bg-cover bg-center border-t bg-fixed bg-no-repeat justify-center bg-program"
       >

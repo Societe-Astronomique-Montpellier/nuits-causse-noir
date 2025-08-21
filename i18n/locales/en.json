@@ -16,7 +16,7 @@
         "date": "From {dateStart} to {dateEnd}",
         "label_tarif": "Rates",
         "label_programme": "Program",
-        "site_closed": "Ticket office opening soon"
+        "site_closed": "Ticket office and program is currently closed. See you next edition."
       },
       "description": {
 

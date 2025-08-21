@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   typescript: {
     typeCheck: true,
   },  
-  compatibilityDate: '2025-05-02',
+  compatibilityDate: '2025-08-21',
   devtools: { enabled: true },
   modules: [
     "@nuxtjs/prismic",
