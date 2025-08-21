@@ -4,13 +4,13 @@ import {isFilled, asLink, asImageSrc} from "@prismicio/helpers";
 import {type ImageField, type LinkField, type RichTextField} from "@prismicio/client";
 import type {ComputedRef} from "vue";
 import {LinkType} from "@prismicio/types";
+import type {LocaleObject} from "@nuxtjs/i18n";
 
 /**
  * Composables
  */
-const { locale, locales, t } = useI18n();
+const { locale, locales, t } = useI18n<{ locales: LocaleObject[] }>();
 const prismic = usePrismic();
-// const { getComponent } = useDynamicComponent();
 
 definePageMeta({
   layout: "home",
@@ -19,9 +19,10 @@ definePageMeta({
 /**
  * Query
  */
-const prismicLang: ComputedRef<string> = computed<string>(() =>
-    locales.value.find(l => l.code === locale.value)?.iso || 'fr-FR'
-)
+const prismicLang: ComputedRef<string> = computed(() => {
+  const match = (locales.value as LocaleObject[]).find(l => l.code === locale.value)
+  return match?.iso as string ?? 'fr-FR';
+});
 
 const prismicFetchData = async () => {
   const [homepage, rates, events] = await Promise.all([
@@ -206,7 +207,7 @@ useSeo({
         id="tarifs"
         class="w-full md:py-14 sm:py-8 bg-cover bg-center border-t bg-fixed bg-no-repeat justify-center bg-rates"
       >
-        <TitleSectionHome :title="components.filter(item => item.name === 'rates')[0].title" customClass="" />
+        <TitleSectionHome :title="components.find(item => item.name === 'rates')?.title" customClass="" />
         <Rates :data="{gridRatesNumber: gridRatesNumber, listRates: data.rates}" />
       </section>
 
@@ -215,7 +216,7 @@ useSeo({
         id="programme"
         class="w-full md:py-14 sm:py-8 bg-cover bg-center border-t bg-fixed bg-no-repeat justify-center bg-program"
       >
-        <TitleSectionHome :title="components.filter(item => item.name === 'program')[0].title" customClass="" />
+        <TitleSectionHome :title="components.find(item => item.name === 'program')?.title" customClass="" />
         <Program :data="{events: groupedByDay}" />
       </section>
 
@@ -223,7 +224,7 @@ useSeo({
         id="place"
         class="w-full md:py-14 sm:py-8 bg-cover bg-center border-t bg-fixed bg-no-repeat justify-center bg-place"
       >
-        <TitleSectionHome :title="components.filter(item => item.name === 'place')[0].title" customClass="" />
+        <TitleSectionHome :title="components.find(item => item.name === 'place')?.title" customClass="" />
         <Place :data="{title: data.homepage.data.place_name, coordinate: pradinesCoordinates}" />
       </section>
 
@@ -232,7 +233,7 @@ useSeo({
         id="galery"
         class="w-full md:py-14 sm:py-8 bg-cover bg-center border-t bg-fixed bg-no-repeat justify-center bg-gallery"
       >
-        <TitleSectionHome :title="components.filter(item => item.name === 'gallery')[0].title" customClass="" />
+        <TitleSectionHome :title="components.find(item => item.name === 'gallery')?.title" customClass="" />
         <Gallery :data="{ images: images, youtubeVideoId: youtubeVideoId }" />
       </section>
 
@@ -240,7 +241,7 @@ useSeo({
         id="contact"
         class="w-full md:py-14 sm:py-8 bg-cover bg-center border-t bg-fixed bg-no-repeat justify-center bg-contact"
       >
-        <TitleSectionHome :title="components.filter(item => item.name === 'contact')[0].title" customClass="" />
+        <TitleSectionHome :title="components.find(item => item.name === 'contact')?.title" customClass="" />
         <ContactForm />
       </section>
 
